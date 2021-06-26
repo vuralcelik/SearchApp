@@ -13,6 +13,8 @@
 		777AB28D2686FDC5003CA891 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 777AB28B2686FDC5003CA891 /* LaunchScreen.storyboard */; };
 		77BB04BB26870311007125CC /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BB04BA26870311007125CC /* BaseNavigationController.swift */; };
 		77BB04BE2687033A007125CC /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BB04BD2687033A007125CC /* BaseVC.swift */; };
+		77BB04C1268704DA007125CC /* BaseVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BB04C0268704DA007125CC /* BaseVM.swift */; };
+		77BB04CE268705DD007125CC /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BB04CD268705DD007125CC /* BaseView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +27,8 @@
 		777AB28E2686FDC5003CA891 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		77BB04BA26870311007125CC /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
 		77BB04BD2687033A007125CC /* BaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVC.swift; sourceTree = "<group>"; };
+		77BB04C0268704DA007125CC /* BaseVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVM.swift; sourceTree = "<group>"; };
+		77BB04CD268705DD007125CC /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		CA8F72319E5AF52F3084BED3 /* Pods-SearchApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SearchApp.release.xcconfig"; path = "Target Support Files/Pods-SearchApp/Pods-SearchApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -139,6 +143,8 @@
 			children = (
 				77BB04BA26870311007125CC /* BaseNavigationController.swift */,
 				77BB04BD2687033A007125CC /* BaseVC.swift */,
+				77BB04C0268704DA007125CC /* BaseVM.swift */,
+				77BB04CD268705DD007125CC /* BaseView.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -274,6 +280,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				77BB04BB26870311007125CC /* BaseNavigationController.swift in Sources */,
+				77BB04C1268704DA007125CC /* BaseVM.swift in Sources */,
+				77BB04CE268705DD007125CC /* BaseView.swift in Sources */,
 				77BB04BE2687033A007125CC /* BaseVC.swift in Sources */,
 				777AB2812686FDC4003CA891 /* AppDelegate.swift in Sources */,
 			);
@@ -418,6 +426,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VFT6WS5363;
 				INFOPLIST_FILE = SearchApp/Utilities/Plists/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -425,7 +434,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.vuralcelik.SearchApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -438,6 +447,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VFT6WS5363;
 				INFOPLIST_FILE = SearchApp/Utilities/Plists/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -445,7 +455,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.vuralcelik.SearchApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
