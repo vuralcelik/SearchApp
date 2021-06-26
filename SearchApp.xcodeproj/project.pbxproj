@@ -11,6 +11,8 @@
 		777AB2812686FDC4003CA891 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777AB2802686FDC4003CA891 /* AppDelegate.swift */; };
 		777AB28A2686FDC5003CA891 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 777AB2892686FDC5003CA891 /* Assets.xcassets */; };
 		777AB28D2686FDC5003CA891 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 777AB28B2686FDC5003CA891 /* LaunchScreen.storyboard */; };
+		77BB04BB26870311007125CC /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BB04BA26870311007125CC /* BaseNavigationController.swift */; };
+		77BB04BE2687033A007125CC /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BB04BD2687033A007125CC /* BaseVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +23,8 @@
 		777AB2892686FDC5003CA891 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		777AB28C2686FDC5003CA891 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		777AB28E2686FDC5003CA891 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		77BB04BA26870311007125CC /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
+		77BB04BD2687033A007125CC /* BaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVC.swift; sourceTree = "<group>"; };
 		CA8F72319E5AF52F3084BED3 /* Pods-SearchApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SearchApp.release.xcconfig"; path = "Target Support Files/Pods-SearchApp/Pods-SearchApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -133,6 +137,8 @@
 		77BB04B92687019A007125CC /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				77BB04BA26870311007125CC /* BaseNavigationController.swift */,
+				77BB04BD2687033A007125CC /* BaseVC.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -267,6 +273,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				77BB04BB26870311007125CC /* BaseNavigationController.swift in Sources */,
+				77BB04BE2687033A007125CC /* BaseVC.swift in Sources */,
 				777AB2812686FDC4003CA891 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
