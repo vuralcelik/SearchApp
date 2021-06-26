@@ -9,3 +9,4 @@
 //Search
 "search_nav_title" = "Search";
 "search_bar_placeholder_text" = "Search movie or artist";
+"search_bar_cancel_title" = "Cancel";

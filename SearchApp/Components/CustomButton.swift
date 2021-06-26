@@ -27,12 +27,13 @@ class CustomButton: UIButton {
     func setupButton(title: String? = nil,
                      font: UIFont? = FontFamily.SourceSansPro.bold.font(size: 16),
                      titleColor: UIColor? = ColorName.customBlack.color,
-                     backgroundColor: UIColor = ColorName.customGray.color,
+                     backgroundColor: UIColor = .clear,
                      cornerRadius: CGFloat = 4) {
         self.backgroundColor = backgroundColor
         setTitle(title, for: .normal)
         titleLabel?.font = font
         setTitleColor(titleColor, for: .normal)
+        clipsToBounds = true
         self.layer.cornerRadius = cornerRadius
     }
 }

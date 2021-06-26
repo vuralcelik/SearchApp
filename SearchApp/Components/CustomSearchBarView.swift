@@ -46,4 +46,30 @@ class CustomSearchBarView: BaseView {
             make.edges.equalToSuperview().inset(8)
         }
     }
+    
+    func setupSearchBar(textFieldPlaceholderText: String? = nil,
+                        textFieldFont: UIFont = FontFamily.SourceSansPro.regular.font(size: 14),
+                        textFieldTextColor: UIColor = ColorName.customBlack.color,
+                        textFieldKeyboardType: UIKeyboardType = .default,
+                        textFieldAutocorrectionType: UITextAutocorrectionType = .no,
+                        textFieldTextContentType: UITextContentType? = nil,
+                        textFieldAlignment: NSTextAlignment = .left,
+                        buttonTitle: String? = nil,
+                        buttonFont: UIFont? = FontFamily.SourceSansPro.bold.font(size: 16),
+                        buttonTitleColor: UIColor? = ColorName.customBlack.color,
+                        buttonBackgroundColor: UIColor = ColorName.customGray.color,
+                        buttonCornerRadius: CGFloat = 4) {
+        customTextFieldView.setupTextFieldView(placeholderText: textFieldPlaceholderText,
+                                               font: textFieldFont,
+                                               textColor: textFieldTextColor,
+                                               keyboardType: textFieldKeyboardType,
+                                               autocorrectionType: textFieldAutocorrectionType,
+                                               textContentType: textFieldTextContentType,
+                                               textFieldAlignment: textFieldAlignment)
+        customButton.setupButton(title: buttonTitle,
+                                 font: buttonFont,
+                                 titleColor: buttonTitleColor,
+                                 backgroundColor: buttonBackgroundColor,
+                                 cornerRadius: buttonCornerRadius)
+    }
 }

@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //MARK: - Helper Methods
     private func setupInitialPage() {
         self.window = UIWindow(frame: UIScreen.main.bounds)
-        let rootVC = BaseNavigationController(rootViewController: SearchVC())
+        let rootVC = BaseNavigationController(rootViewController: MainScreenVC())
         self.window?.rootViewController = rootVC
         self.window?.makeKeyAndVisible()
     }

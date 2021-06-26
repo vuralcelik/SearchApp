@@ -11,7 +11,7 @@ class CustomTextFieldView: BaseView {
     //MARK: - Views
     lazy var textField: UITextField = {
         let view = UITextField()
-        view.backgroundColor = .gray
+        view.backgroundColor = ColorName.customGray.color
         return view
     }()
     

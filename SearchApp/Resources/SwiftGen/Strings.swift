@@ -10,6 +10,8 @@ import Foundation
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum L10n {
+  /// Cancel
+  internal static let searchBarCancelTitle = L10n.tr("Localizable", "search_bar_cancel_title")
   /// Search movie or artist
   internal static let searchBarPlaceholderText = L10n.tr("Localizable", "search_bar_placeholder_text")
   /// Search

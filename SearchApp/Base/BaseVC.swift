@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 class BaseVC: UIViewController {
     //MARK: - Computed Properties
@@ -26,6 +27,9 @@ class BaseVC: UIViewController {
             navigationController?.navigationBar.barTintColor = navBarBackgroundColor
         }
     }
+    
+    //MARK: - Properties
+    let disposeBag = DisposeBag()
 
     //MARK: - Life Cycle
     override func viewDidLoad() {
