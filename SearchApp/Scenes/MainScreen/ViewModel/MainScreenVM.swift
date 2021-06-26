@@ -6,9 +6,18 @@
 //
 
 import RxSwift
+import RxCocoa
 
 class MainScreenVM: BaseVM {
-    var items = Observable<[String]>.of(
-        ["One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten"]
-    )
+    //MARK: - Properties
+    var getPopularMoviesResponse = BehaviorRelay<[MovieResponseModel]>(value: [])
+    
+    //MARK: - Requests
+    func getPopularMovies() -> Observable<BasePaginationResponseModel<MovieResponseModel>>{
+        let queryStringRequest = BaseQueryStringRequestModel(apiKey: "d5155429a4ca75afc8742180a5108788",
+                                                             language: "tr_TR",
+                                                             page: "1",
+                                                             region: "tr")
+        return Networking.request(router: MovieRouter.popular(queryStringRequest: queryStringRequest))
+    }
 }

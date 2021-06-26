@@ -38,6 +38,7 @@ class MainScreenVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         bindTableView()
+        getPopularMovies()
     }
     
     //MARK: - Events
@@ -77,11 +78,23 @@ class MainScreenVC: BaseVC {
     
     //MARK: - Helper Methods
     private func bindTableView() {
-        mainScreenVM.items
-        .bind(to: tableView.rx.items(cellIdentifier: MovieCell.identifier, cellType: MovieCell.self)) { indexPath, title, cell in
+        mainScreenVM.getPopularMoviesResponse
+        .asObservable()
+        .bind(to: tableView.rx.items(cellIdentifier: MovieCell.identifier, cellType: MovieCell.self)) {_, movie, cell in
+            cell.movieModel = movie
+        }.disposed(by: disposeBag)
+    }
+    
+    //MARK: - Service Calls
+    private func getPopularMovies() {
+        mainScreenVM.getPopularMovies().subscribe(
+        onNext: { [weak self] (response: BasePaginationResponseModel<MovieResponseModel>) in
+            self?.mainScreenVM.getPopularMoviesResponse.accept(response.results ?? [])
+            self?.tableView.reloadData()
+        },
+        onError: { (error) in
             
-        }
-        .disposed(by: disposeBag)
+        }).disposed(by: disposeBag)
     }
     
     //MARK: - Navigations

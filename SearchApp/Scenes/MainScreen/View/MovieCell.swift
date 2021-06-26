@@ -42,6 +42,7 @@ class MovieCell: BaseTableViewCell {
         view.backgroundColor = .clear
         view.text = "äsdklsalkdjasl"
         view.textAlignment = .left
+        view.numberOfLines = 0
         view.font = FontFamily.SourceSansPro.bold.font(size: 16)
         view.textColor = ColorName.customBlack.color
         return view
@@ -52,10 +53,20 @@ class MovieCell: BaseTableViewCell {
         view.backgroundColor = .clear
         view.text = "äsdklsalkdjasl"
         view.textAlignment = .right
+        view.numberOfLines = 1
         view.font = FontFamily.SourceSansPro.bold.font(size: 16)
         view.textColor = ColorName.customBlack.color
         return view
     }()
+    
+    //MARK: - Computed Properties
+    var movieModel: MovieResponseModel? {
+        didSet {
+            guard let validatedMovieModel = movieModel else { return }
+            movieTitleLabel.text = (validatedMovieModel.title ?? "") + ", " + (validatedMovieModel.releaseDate ?? "")
+            movieVoteLabel.text = validatedMovieModel.voteAverage?.description
+        }
+    }
     
     //MARK: - UI Configuration
     override func setupViews() {

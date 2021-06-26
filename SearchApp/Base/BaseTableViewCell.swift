@@ -19,7 +19,7 @@ class BaseTableViewCell: UITableViewCell {
 //        commonInit()
     }
     
-    private func commonInit() {
+    func commonInit() {
         setupViews()
         setupLayout()
     }
