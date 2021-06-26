@@ -7,6 +7,7 @@
 
 import UIKit
 import RxSwift
+import RxCocoa
 import RxDataSources
 
 class MainScreenVC: BaseVC {
@@ -40,6 +41,14 @@ class MainScreenVC: BaseVC {
     }
     
     //MARK: - Events
+    override func bindEvents() {
+        tableView
+        .rx
+        .itemSelected
+        .subscribe(onNext: { [weak self] indexPath in
+            self?.navigateToMovieDetail()
+        }).disposed(by: disposeBag)
+    }
     
     //MARK: - UI Configuration
     override func setupViews() {
@@ -73,5 +82,10 @@ class MainScreenVC: BaseVC {
             
         }
         .disposed(by: disposeBag)
+    }
+    
+    //MARK: - Navigations
+    private func navigateToMovieDetail() {
+        push(to: UIViewController())
     }
 }

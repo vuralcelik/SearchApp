@@ -36,6 +36,7 @@ class BaseVC: UIViewController {
         super.viewDidLoad()
         setupViews()
         setupLayout()
+        bindEvents()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -59,6 +60,8 @@ class BaseVC: UIViewController {
     func setupNavBar() {}
     
     //MARK: - Helper Methods
+    func bindEvents() {}
+    
     func observeViewModel() {}
     
     //MARK: - Navigations
