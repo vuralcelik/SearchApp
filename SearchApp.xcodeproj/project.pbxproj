@@ -13,6 +13,7 @@
 		77282DFD26873A2500173384 /* BasePaginationResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77282DFC26873A2500173384 /* BasePaginationResponseModel.swift */; };
 		77282E0A26873D0700173384 /* Encodable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77282E0926873D0700173384 /* Encodable+Extension.swift */; };
 		77282E0E2687626000173384 /* PeopleRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77282E0D2687626000173384 /* PeopleRouter.swift */; };
+		77282E1B2687642700173384 /* PeopleResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77282E1A2687642700173384 /* PeopleResponseModel.swift */; };
 		777AB2812686FDC4003CA891 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777AB2802686FDC4003CA891 /* AppDelegate.swift */; };
 		777AB28A2686FDC5003CA891 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 777AB2892686FDC5003CA891 /* Assets.xcassets */; };
 		777AB28D2686FDC5003CA891 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 777AB28B2686FDC5003CA891 /* LaunchScreen.storyboard */; };
@@ -65,6 +66,7 @@
 		77282DFC26873A2500173384 /* BasePaginationResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePaginationResponseModel.swift; sourceTree = "<group>"; };
 		77282E0926873D0700173384 /* Encodable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+Extension.swift"; sourceTree = "<group>"; };
 		77282E0D2687626000173384 /* PeopleRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleRouter.swift; sourceTree = "<group>"; };
+		77282E1A2687642700173384 /* PeopleResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleResponseModel.swift; sourceTree = "<group>"; };
 		777AB27D2686FDC4003CA891 /* SearchApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SearchApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		777AB2802686FDC4003CA891 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		777AB2892686FDC5003CA891 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -221,6 +223,54 @@
 			path = PathVariable;
 			sourceTree = "<group>";
 		};
+		77282E14268763F300173384 /* People */ = {
+			isa = PBXGroup;
+			children = (
+				77282E15268763F700173384 /* Request */,
+				77282E16268763FD00173384 /* Response */,
+			);
+			path = People;
+			sourceTree = "<group>";
+		};
+		77282E15268763F700173384 /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				77282E172687640700173384 /* BodyParameter */,
+				77282E192687641100173384 /* PathVariable */,
+				77282E182687640D00173384 /* QueryString */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
+		77282E16268763FD00173384 /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				77282E1A2687642700173384 /* PeopleResponseModel.swift */,
+			);
+			path = Response;
+			sourceTree = "<group>";
+		};
+		77282E172687640700173384 /* BodyParameter */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = BodyParameter;
+			sourceTree = "<group>";
+		};
+		77282E182687640D00173384 /* QueryString */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = QueryString;
+			sourceTree = "<group>";
+		};
+		77282E192687641100173384 /* PathVariable */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = PathVariable;
+			sourceTree = "<group>";
+		};
 		777AB2742686FDC4003CA891 = {
 			isa = PBXGroup;
 			children = (
@@ -362,6 +412,7 @@
 			children = (
 				77282DE62687384B00173384 /* Base */,
 				77282DEF268738BB00173384 /* Movie */,
+				77282E14268763F300173384 /* People */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -619,6 +670,7 @@
 				777B1E4E26871552006F2531 /* CustomButton.swift in Sources */,
 				77282DFD26873A2500173384 /* BasePaginationResponseModel.swift in Sources */,
 				777B1E73268721D7006F2531 /* UITableViewCell+Extension.swift in Sources */,
+				77282E1B2687642700173384 /* PeopleResponseModel.swift in Sources */,
 				77BB04C1268704DA007125CC /* BaseVM.swift in Sources */,
 				77BB04DC268706E8007125CC /* Assets.swift in Sources */,
 				777B1E5C26871A1C006F2531 /* MainScreenVC.swift in Sources */,
