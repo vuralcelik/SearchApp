@@ -5,3 +5,7 @@
   Created by Vural Çelik on 26.06.2021.
   
 */
+
+//Search
+"search_nav_title" = "Search";
+"search_bar_placeholder_text" = "Search movie or artist";

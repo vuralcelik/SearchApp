@@ -10,6 +10,8 @@
 		777AB2812686FDC4003CA891 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777AB2802686FDC4003CA891 /* AppDelegate.swift */; };
 		777AB28A2686FDC5003CA891 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 777AB2892686FDC5003CA891 /* Assets.xcassets */; };
 		777AB28D2686FDC5003CA891 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 777AB28B2686FDC5003CA891 /* LaunchScreen.storyboard */; };
+		777B1E34268713AD006F2531 /* CustomTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777B1E33268713AD006F2531 /* CustomTextFieldView.swift */; };
+		777B1E4E26871552006F2531 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777B1E4D26871552006F2531 /* CustomButton.swift */; };
 		77BB04BB26870311007125CC /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BB04BA26870311007125CC /* BaseNavigationController.swift */; };
 		77BB04BE2687033A007125CC /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BB04BD2687033A007125CC /* BaseVC.swift */; };
 		77BB04C1268704DA007125CC /* BaseVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BB04C0268704DA007125CC /* BaseVM.swift */; };
@@ -33,6 +35,9 @@
 		77BB050E26870865007125CC /* SourceSansPro-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 77BB050226870865007125CC /* SourceSansPro-ExtraLightItalic.ttf */; };
 		77BB050F26870865007125CC /* SourceSansPro-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 77BB050326870865007125CC /* SourceSansPro-Light.ttf */; };
 		77BB051026870865007125CC /* SourceSansPro-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 77BB050426870865007125CC /* SourceSansPro-SemiBold.ttf */; };
+		77BB055C268710F2007125CC /* SearchVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BB055B268710F2007125CC /* SearchVM.swift */; };
+		77BB0560268712B8007125CC /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BB055F268712B8007125CC /* SearchVC.swift */; };
+		77BB056426871305007125CC /* CustomSearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BB056326871305007125CC /* CustomSearchBarView.swift */; };
 		8F637D90D78D6CACC253EB5B /* Pods_SearchApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EC51429528E4F53FBB1ADAF /* Pods_SearchApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -44,6 +49,8 @@
 		777AB2892686FDC5003CA891 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		777AB28C2686FDC5003CA891 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		777AB28E2686FDC5003CA891 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		777B1E33268713AD006F2531 /* CustomTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextFieldView.swift; sourceTree = "<group>"; };
+		777B1E4D26871552006F2531 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		77BB04BA26870311007125CC /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
 		77BB04BD2687033A007125CC /* BaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVC.swift; sourceTree = "<group>"; };
 		77BB04C0268704DA007125CC /* BaseVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVM.swift; sourceTree = "<group>"; };
@@ -69,6 +76,9 @@
 		77BB050226870865007125CC /* SourceSansPro-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
 		77BB050326870865007125CC /* SourceSansPro-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Light.ttf"; sourceTree = "<group>"; };
 		77BB050426870865007125CC /* SourceSansPro-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-SemiBold.ttf"; sourceTree = "<group>"; };
+		77BB055B268710F2007125CC /* SearchVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVM.swift; sourceTree = "<group>"; };
+		77BB055F268712B8007125CC /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
+		77BB056326871305007125CC /* CustomSearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSearchBarView.swift; sourceTree = "<group>"; };
 		9EC51429528E4F53FBB1ADAF /* Pods_SearchApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SearchApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -108,6 +118,7 @@
 			children = (
 				777AB2962686FE2C003CA891 /* Application */,
 				77BB04B92687019A007125CC /* Base */,
+				77BB0562268712E4007125CC /* Components */,
 				777AB2982686FE37003CA891 /* Helper */,
 				777AB29B2686FE61003CA891 /* Resources */,
 				777AB2972686FE31003CA891 /* Scenes */,
@@ -128,6 +139,8 @@
 		777AB2972686FE31003CA891 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				77BB05532687107E007125CC /* Search */,
+				77BB054D26870CB8007125CC /* MainScreen */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -230,6 +243,80 @@
 				77BB04FB26870865007125CC /* SourceSansPro-SemiBoldItalic.ttf */,
 			);
 			path = "Font Files";
+			sourceTree = "<group>";
+		};
+		77BB054D26870CB8007125CC /* MainScreen */ = {
+			isa = PBXGroup;
+			children = (
+				77BB055126870CE2007125CC /* Controller */,
+				77BB054E26870CCF007125CC /* Model */,
+				77BB055026870CE0007125CC /* ViewModel */,
+			);
+			path = MainScreen;
+			sourceTree = "<group>";
+		};
+		77BB054E26870CCF007125CC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		77BB055026870CE0007125CC /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		77BB055126870CE2007125CC /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		77BB05532687107E007125CC /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				77BB05562687108E007125CC /* Controller */,
+				77BB05542687108A007125CC /* Model */,
+				77BB05552687108C007125CC /* ViewModel */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		77BB05542687108A007125CC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		77BB05552687108C007125CC /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				77BB055B268710F2007125CC /* SearchVM.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		77BB05562687108E007125CC /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				77BB055F268712B8007125CC /* SearchVC.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		77BB0562268712E4007125CC /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				77BB056326871305007125CC /* CustomSearchBarView.swift */,
+				777B1E33268713AD006F2531 /* CustomTextFieldView.swift */,
+				777B1E4D26871552006F2531 /* CustomButton.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		C9095596806C917E5BBC885D /* Pods */ = {
@@ -378,14 +465,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				777B1E34268713AD006F2531 /* CustomTextFieldView.swift in Sources */,
 				77BB04BB26870311007125CC /* BaseNavigationController.swift in Sources */,
+				77BB0560268712B8007125CC /* SearchVC.swift in Sources */,
 				77BB04E2268706F1007125CC /* Colors.swift in Sources */,
+				777B1E4E26871552006F2531 /* CustomButton.swift in Sources */,
 				77BB04C1268704DA007125CC /* BaseVM.swift in Sources */,
 				77BB04DC268706E8007125CC /* Assets.swift in Sources */,
 				77BB04CE268705DD007125CC /* BaseView.swift in Sources */,
 				77BB04BE2687033A007125CC /* BaseVC.swift in Sources */,
 				777AB2812686FDC4003CA891 /* AppDelegate.swift in Sources */,
+				77BB056426871305007125CC /* CustomSearchBarView.swift in Sources */,
 				77BB04E5268706F6007125CC /* Fonts.swift in Sources */,
+				77BB055C268710F2007125CC /* SearchVM.swift in Sources */,
 				77BB04DF268706ED007125CC /* Strings.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class BaseView: UIView {
     //MARK: - Life Cycle

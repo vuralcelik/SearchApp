@@ -1,3 +1,5 @@
 {
-    "exampleColor" : "#33fe66"
+    "customWhite" : "#FFFFFF",
+    "customBlack" : "#000000",
+    "customGray" : "#F4F4F4"
 }
