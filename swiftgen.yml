@@ -1,0 +1,22 @@
+strings:
+  inputs:
+    - SearchApp/Resources/tr.lproj
+  outputs:
+    templateName: structured-swift5
+    output: SearchApp/Resources/SwiftGen/Strings.swift
+xcassets:
+  inputs:
+    - SearchApp/Resources/Assets.xcassets
+  outputs:
+    - templateName: swift5
+      output: SearchApp/Resources/SwiftGen/Assets.swift
+colors:
+  inputs: SearchApp/Resources/JSON Files/ColorJSON.json
+  outputs:
+    templateName: swift5
+    output: SearchApp/Resources/SwiftGen/Colors.swift
+fonts:
+  inputs: SearchApp/Resources/Font Files
+  outputs:
+    templateName: swift5
+    output: SearchApp/Resources/SwiftGen/Fonts.swift

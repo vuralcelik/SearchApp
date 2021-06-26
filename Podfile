@@ -8,4 +8,5 @@ target 'SearchApp' do
   pod 'RxSwift'
   pod 'RxCocoa'
   pod 'SnapKit'
+  pod 'SwiftGen'
 end
