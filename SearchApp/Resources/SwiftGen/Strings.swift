@@ -10,6 +10,14 @@ import Foundation
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum L10n {
+  /// Cast Members
+  internal static let movieDetailCastMembersHeaderTitle = L10n.tr("Localizable", "movie_detail_cast_members_header_title")
+  /// Informations
+  internal static let movieDetailInformationsHeaderTitle = L10n.tr("Localizable", "movie_detail_informations_header_title")
+  /// Movie Detail
+  internal static let movieDetailNavTitle = L10n.tr("Localizable", "movie_detail_nav_title")
+  /// Videos
+  internal static let movieDetailVideosHeaderTitle = L10n.tr("Localizable", "movie_detail_videos_header_title")
   /// Cancel
   internal static let searchBarCancelTitle = L10n.tr("Localizable", "search_bar_cancel_title")
   /// Search movie or artist

@@ -26,7 +26,8 @@ class BaseTableViewCell: UITableViewCell {
     
     //MARK: - UI Configuration
     func setupViews() {
-        
+        backgroundColor = .clear
+        contentView.backgroundColor = .clear
     }
     
     func setupLayout() {

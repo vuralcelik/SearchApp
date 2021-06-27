@@ -9,11 +9,7 @@ import RxSwift
 import RxCocoa
 import UIKit
 
-enum MainScreenVMStateChange: StateChange {
-    
-}
-
-class MainScreenVM: BaseVM<MainScreenVMStateChange> {
+class MainScreenVM: BaseVM {
     //MARK: - Regular Properties
     var sections = MainScreenVCSectionTypes.allCases
     var searchType: MainScreenVCSearchTypes = .onlyPopularMovies
@@ -55,7 +51,7 @@ class MainScreenVM: BaseVM<MainScreenVMStateChange> {
     }
     
     //MARK: - Helper Methods
-    private func getSectionType(section: Int) -> MainScreenVCSectionTypes {
+    func getSectionType(section: Int) -> MainScreenVCSectionTypes {
         guard let validatedSectionType = MainScreenVCSectionTypes(rawValue: section) else { return .movies }
         return validatedSectionType
     }
@@ -66,6 +62,15 @@ class MainScreenVM: BaseVM<MainScreenVMStateChange> {
     
     func shouldCallPopularMovies(by textField: UITextField) -> Bool {
         return !shouldCallSearch(by: textField)
+    }
+    
+    func getMovie(by index: Int) -> MovieResponseModel {
+        switch searchType {
+        case .onlyPopularMovies:
+            return getPopularMoviesResponse.value[index]
+        case .multiSearch:
+            return getSearchMoviesResponse.value[index]
+        }
     }
 }
 

@@ -8,11 +8,6 @@
 import Foundation
 import RxSwift
 
-protocol StateChange {
-    
-}
-
-class BaseVM<T: StateChange>: NSObject {
+class BaseVM: NSObject {
     let disposeBag = DisposeBag()
-    let emitter = PublishSubject<StateChange>()
 }

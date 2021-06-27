@@ -64,6 +64,21 @@ class MainScreenVC: BaseVC {
                 self.customSearchBar.customTextFieldView.textField.text = nil
                 self.view.endEditing(true)
             }).disposed(by: disposeBag)
+        
+        tableView
+            .rx
+            .itemSelected
+            .subscribe { [weak self] indexPath in
+                guard let self = self,
+                      let validatedSection = indexPath.element?.section,
+                      let validatedRow = indexPath.element?.row else { return }
+                switch self.mainScreenVM.getSectionType(section: validatedSection) {
+                case .movies:
+                    self.navigateToMovieDetail(movie: self.mainScreenVM.getMovie(by: validatedRow))
+                case .peoples:
+                    break
+                }
+            }.disposed(by: disposeBag)
     }
     
     //MARK: - Life Cycle
@@ -130,7 +145,9 @@ class MainScreenVC: BaseVC {
     }
     
     //MARK: - Navigations
-    private func navigateToMovieDetail() {
-        push(to: UIViewController())
+    private func navigateToMovieDetail(movie: MovieResponseModel) {
+        let vc = MovieDetailVC()
+        vc.movieDetailVM.navigatedMovieBehaviorRelay.accept(movie)
+        push(to: vc)
     }
 }

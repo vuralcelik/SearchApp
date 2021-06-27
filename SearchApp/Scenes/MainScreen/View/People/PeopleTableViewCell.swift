@@ -38,15 +38,11 @@ class PeopleTableViewCell: BaseTableViewCell {
     //MARK: - UI Configuration
     override func setupViews() {
         super.setupViews()
-        backgroundColor = .clear
-        contentView.backgroundColor = .clear
-        
         contentView.addSubview(collectionView)
     }
     
     override func setupLayout() {
         super.setupLayout()
-        
         collectionView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }

@@ -57,9 +57,6 @@ class PeopleCell: BaseCollectionViewCell {
     //MARK: - UI Configuration
     override func setupViews() {
         super.setupViews()
-        backgroundColor = .clear
-        contentView.backgroundColor = .clear
-        
         contentView.addSubview(containerStackView)
     }
     

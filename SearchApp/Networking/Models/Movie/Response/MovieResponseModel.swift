@@ -14,6 +14,7 @@ struct MovieResponseModel: Decodable {
     let originalTitle: String?
     let title: String?
     let voteAverage: Double?
+    let overview: String?
 
     enum CodingKeys: String, CodingKey {
         case posterPath = "poster_path"
@@ -22,5 +23,6 @@ struct MovieResponseModel: Decodable {
         case originalTitle = "original_title"
         case title
         case voteAverage = "vote_average"
+        case overview = "overview"
     }
 }

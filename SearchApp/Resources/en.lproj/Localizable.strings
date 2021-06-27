@@ -12,3 +12,9 @@
 "search_bar_cancel_title" = "Cancel";
 "search_movie_header_title" = "Movies";
 "search_people_header_title" = "Peoples";
+
+//MovieDetailVC
+"movie_detail_nav_title" = "Movie Detail";
+"movie_detail_informations_header_title" = "Informations";
+"movie_detail_cast_members_header_title" = "Cast Members";
+"movie_detail_videos_header_title" = "Videos";
