@@ -10,4 +10,5 @@ target 'SearchApp' do
   pod 'SnapKit'
   pod 'SwiftGen'
   pod 'RxDataSources'
+  pod 'Kingfisher'
 end

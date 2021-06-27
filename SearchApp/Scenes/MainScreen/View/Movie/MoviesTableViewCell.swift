@@ -60,13 +60,6 @@ class MoviesTableViewCell: BaseTableViewCell {
         disposeBag = DisposeBag()
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-//        collectionView.snp.updateConstraints { (make) in
-//            make.height.equalTo(collectionView.collectionViewLayout.collectionViewContentSize.height)
-//        }
-    }
-    
     //MARK: - UI Configuration
     override func setupViews() {
         super.setupViews()
@@ -80,7 +73,6 @@ class MoviesTableViewCell: BaseTableViewCell {
         super.setupLayout()
         collectionView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
-//            make.height.equalTo(0)
         }
     }
 }

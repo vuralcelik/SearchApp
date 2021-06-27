@@ -29,7 +29,9 @@ class MainScreenVC: BaseVC {
         view.backgroundColor = .clear
         view.rx.setDelegate(mainScreenVM).disposed(by: disposeBag)
         view.rx.setDataSource(mainScreenVM).disposed(by: disposeBag)
-        view.registerCells(types: [MoviesTableViewCell.self])
+        view.registerCells(types: [MoviesTableViewCell.self,
+                                   PeopleTableViewCell.self,
+                                   OnlyMovieCell.self])
         return view
     }()
     
@@ -74,7 +76,22 @@ class MainScreenVC: BaseVC {
         mainScreenVM.getPopularMovies().subscribe(
         onNext: { [weak self] (response: BasePaginationResponseModel<MovieResponseModel>) in
             guard let self = self else { return }
-            self.mainScreenVM.getPopularPeoplesResponse.accept(response.results ?? [])
+            self.mainScreenVM.getPopularMoviesResponse.accept(response.results ?? [])
+            self.mainScreenVM.searchType = .onlyPopularMovies
+            self.tableView.reloadData()
+        },
+        onError: { (error) in
+            ///TODO - Make error pop up
+        }).disposed(by: disposeBag)
+    }
+
+    
+    private func getMultiSearch(searchText: String?) {
+        mainScreenVM.getMultiSearch(searchText: searchText)?.subscribe(
+        onNext: { [weak self] (response: BasePaginationResponseModel<MultiSearchResponseModel>) in
+            guard let self = self else { return }
+            self.mainScreenVM.getMultiSearchResponse.accept(response.results ?? [])
+            self.mainScreenVM.searchType = .multiSearch
             self.tableView.reloadData()
         },
         onError: { (error) in

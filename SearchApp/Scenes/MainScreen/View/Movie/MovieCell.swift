@@ -41,7 +41,6 @@ class MovieCell: BaseCollectionViewCell {
     lazy var movieTitleLabel: UILabel = {
         let view = UILabel()
         view.backgroundColor = .clear
-        view.text = "äsdklsalkdjasl"
         view.textAlignment = .left
         view.numberOfLines = 0
         view.font = FontFamily.SourceSansPro.bold.font(size: 16)
@@ -52,7 +51,6 @@ class MovieCell: BaseCollectionViewCell {
     lazy var movieVoteLabel: UILabel = {
         let view = UILabel()
         view.backgroundColor = .clear
-        view.text = "äsdklsalkdjasl"
         view.textAlignment = .right
         view.numberOfLines = 1
         view.font = FontFamily.SourceSansPro.bold.font(size: 16)
@@ -66,7 +64,14 @@ class MovieCell: BaseCollectionViewCell {
             guard let validatedMovieModel = movieModel else { return }
             movieTitleLabel.text = (validatedMovieModel.title ?? "") + ", " + (validatedMovieModel.releaseDate ?? "")
             movieVoteLabel.text = validatedMovieModel.voteAverage?.description
+            ImageManager.setImage(imageView: moviePosterImageView, urlString: validatedMovieModel.posterPath)
         }
+    }
+    
+    //MARK: - Life Cycle
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        moviePosterImageView.image = nil
     }
     
     //MARK: - UI Configuration

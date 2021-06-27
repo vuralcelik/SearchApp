@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		770823D8268883E80028B342 /* PeopleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770823D7268883E80028B342 /* PeopleTableViewCell.swift */; };
+		770823DB268884610028B342 /* PeopleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770823DA268884610028B342 /* PeopleCell.swift */; };
+		770823E926888D550028B342 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770823E826888D550028B342 /* ImageManager.swift */; };
+		770823EC2688957C0028B342 /* SearchRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770823EB2688957C0028B342 /* SearchRouter.swift */; };
+		770823F5268897B20028B342 /* MultiSearchResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770823F4268897B20028B342 /* MultiSearchResponseModel.swift */; };
+		770823F826889E2B0028B342 /* MainScreenVCSearchTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770823F726889E2B0028B342 /* MainScreenVCSearchTypes.swift */; };
+		770823FB26889EF40028B342 /* OnlyMovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770823FA26889EF40028B342 /* OnlyMovieCell.swift */; };
 		77282DE3268737BD00173384 /* MovieRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77282DE2268737BD00173384 /* MovieRouter.swift */; };
 		77282DED2687387600173384 /* BaseQueryStringRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77282DEC2687387600173384 /* BaseQueryStringRequestModel.swift */; };
 		77282DFA268739C400173384 /* MovieResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77282DF9268739C400173384 /* MovieResponseModel.swift */; };
@@ -65,6 +72,13 @@
 /* Begin PBXFileReference section */
 		17C1B79CB0B5D3E72DD43716 /* Pods-SearchApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SearchApp.debug.xcconfig"; path = "Target Support Files/Pods-SearchApp/Pods-SearchApp.debug.xcconfig"; sourceTree = "<group>"; };
 		3152441BAA91E1221E3F730A /* Pods-SearchApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SearchApp.release.xcconfig"; path = "Target Support Files/Pods-SearchApp/Pods-SearchApp.release.xcconfig"; sourceTree = "<group>"; };
+		770823D7268883E80028B342 /* PeopleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleTableViewCell.swift; sourceTree = "<group>"; };
+		770823DA268884610028B342 /* PeopleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleCell.swift; sourceTree = "<group>"; };
+		770823E826888D550028B342 /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
+		770823EB2688957C0028B342 /* SearchRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRouter.swift; sourceTree = "<group>"; };
+		770823F4268897B20028B342 /* MultiSearchResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSearchResponseModel.swift; sourceTree = "<group>"; };
+		770823F726889E2B0028B342 /* MainScreenVCSearchTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenVCSearchTypes.swift; sourceTree = "<group>"; };
+		770823FA26889EF40028B342 /* OnlyMovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlyMovieCell.swift; sourceTree = "<group>"; };
 		77282DE2268737BD00173384 /* MovieRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieRouter.swift; sourceTree = "<group>"; };
 		77282DEC2687387600173384 /* BaseQueryStringRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseQueryStringRequestModel.swift; sourceTree = "<group>"; };
 		77282DF9268739C400173384 /* MovieResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieResponseModel.swift; sourceTree = "<group>"; };
@@ -136,6 +150,54 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		770823EE268897760028B342 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				770823EF268897790028B342 /* Request */,
+				770823F02688977C0028B342 /* Response */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		770823EF268897790028B342 /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				770823F1268897870028B342 /* BodyParameter */,
+				770823F3268897920028B342 /* PathVariable */,
+				770823F22688978E0028B342 /* QueryString */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
+		770823F02688977C0028B342 /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				770823F4268897B20028B342 /* MultiSearchResponseModel.swift */,
+			);
+			path = Response;
+			sourceTree = "<group>";
+		};
+		770823F1268897870028B342 /* BodyParameter */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = BodyParameter;
+			sourceTree = "<group>";
+		};
+		770823F22688978E0028B342 /* QueryString */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = QueryString;
+			sourceTree = "<group>";
+		};
+		770823F3268897920028B342 /* PathVariable */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = PathVariable;
+			sourceTree = "<group>";
+		};
 		77282DE62687384B00173384 /* Base */ = {
 			isa = PBXGroup;
 			children = (
@@ -385,6 +447,7 @@
 			isa = PBXGroup;
 			children = (
 				777B1E8226873004006F2531 /* GlobalMethodsManager.swift */,
+				770823E826888D550028B342 /* ImageManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -416,6 +479,7 @@
 			children = (
 				77282DE2268737BD00173384 /* MovieRouter.swift */,
 				77282E0D2687626000173384 /* PeopleRouter.swift */,
+				770823EB2688957C0028B342 /* SearchRouter.swift */,
 			);
 			path = Routers;
 			sourceTree = "<group>";
@@ -426,6 +490,7 @@
 				77282DE62687384B00173384 /* Base */,
 				77282DEF268738BB00173384 /* Movie */,
 				77282E14268763F300173384 /* People */,
+				770823EE268897760028B342 /* Search */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -530,6 +595,7 @@
 			isa = PBXGroup;
 			children = (
 				77F8A3C0268876DA007AD2E3 /* MainScreenVCSectionTypes.swift */,
+				770823F726889E2B0028B342 /* MainScreenVCSearchTypes.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -539,6 +605,7 @@
 			children = (
 				777B1E7B26872471006F2531 /* MovieCell.swift */,
 				77F8A3AF2687ABCC007AD2E3 /* MoviesTableViewCell.swift */,
+				770823FA26889EF40028B342 /* OnlyMovieCell.swift */,
 			);
 			path = Movie;
 			sourceTree = "<group>";
@@ -546,6 +613,8 @@
 		77F8A3C5268882D3007AD2E3 /* People */ = {
 			isa = PBXGroup;
 			children = (
+				770823D7268883E80028B342 /* PeopleTableViewCell.swift */,
+				770823DA268884610028B342 /* PeopleCell.swift */,
 			);
 			path = People;
 			sourceTree = "<group>";
@@ -704,9 +773,12 @@
 				77BB04BB26870311007125CC /* BaseNavigationController.swift in Sources */,
 				777B1EA42687371C006F2531 /* Networking.swift in Sources */,
 				77F8A3BC2687B178007AD2E3 /* BaseCollectionViewCell.swift in Sources */,
+				770823FB26889EF40028B342 /* OnlyMovieCell.swift in Sources */,
+				770823DB268884610028B342 /* PeopleCell.swift in Sources */,
 				77282DE3268737BD00173384 /* MovieRouter.swift in Sources */,
 				77BB04E2268706F1007125CC /* Colors.swift in Sources */,
 				777B1E8026872502006F2531 /* BaseTableViewCell.swift in Sources */,
+				770823EC2688957C0028B342 /* SearchRouter.swift in Sources */,
 				777B1E4E26871552006F2531 /* CustomButton.swift in Sources */,
 				77282DFD26873A2500173384 /* BasePaginationResponseModel.swift in Sources */,
 				777B1E73268721D7006F2531 /* UITableViewCell+Extension.swift in Sources */,
@@ -716,16 +788,20 @@
 				77F8A3B62687B0B0007AD2E3 /* UICollectionView+Extension.swift in Sources */,
 				777B1E5C26871A1C006F2531 /* MainScreenVC.swift in Sources */,
 				77BB04CE268705DD007125CC /* BaseView.swift in Sources */,
+				770823E926888D550028B342 /* ImageManager.swift in Sources */,
+				770823D8268883E80028B342 /* PeopleTableViewCell.swift in Sources */,
 				777B1E7626872371006F2531 /* MainScreenVM.swift in Sources */,
 				777B1EA126873697006F2531 /* RouterProvider.swift in Sources */,
 				77BB04BE2687033A007125CC /* BaseVC.swift in Sources */,
 				777AB2812686FDC4003CA891 /* AppDelegate.swift in Sources */,
+				770823F826889E2B0028B342 /* MainScreenVCSearchTypes.swift in Sources */,
 				777B1E9E26873683006F2531 /* NetworkError.swift in Sources */,
 				77F8A3C1268876DA007AD2E3 /* MainScreenVCSectionTypes.swift in Sources */,
 				77BB056426871305007125CC /* CustomSearchBarView.swift in Sources */,
 				777B1E99268734A5006F2531 /* APIConstants.swift in Sources */,
 				77282E0E2687626000173384 /* PeopleRouter.swift in Sources */,
 				77BB04E5268706F6007125CC /* Fonts.swift in Sources */,
+				770823F5268897B20028B342 /* MultiSearchResponseModel.swift in Sources */,
 				77F8A3B02687ABCC007AD2E3 /* MoviesTableViewCell.swift in Sources */,
 				77BB04DF268706ED007125CC /* Strings.swift in Sources */,
 				77282E0A26873D0700173384 /* Encodable+Extension.swift in Sources */,
