@@ -59,12 +59,12 @@ class MovieCell: BaseCollectionViewCell {
     }()
     
     //MARK: - Computed Properties
-    var movieModel: MovieResponseModel? {
+    var movieSearchModel: MovieResponseModel? {
         didSet {
-            guard let validatedMovieModel = movieModel else { return }
-            movieTitleLabel.text = (validatedMovieModel.title ?? "") + ", " + (validatedMovieModel.releaseDate ?? "")
-            movieVoteLabel.text = validatedMovieModel.voteAverage?.description
-            ImageManager.setImage(imageView: moviePosterImageView, urlString: validatedMovieModel.posterPath)
+            guard let validatedMovieSearchModel = movieSearchModel else { return }
+            movieTitleLabel.text = (validatedMovieSearchModel.title ?? "") + ", " + (validatedMovieSearchModel.releaseDate ?? "")
+            movieVoteLabel.text = validatedMovieSearchModel.voteAverage?.description
+            ImageManager.setImage(imageView: moviePosterImageView, urlString: validatedMovieSearchModel.posterPath)
         }
     }
     

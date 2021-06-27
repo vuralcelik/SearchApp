@@ -20,8 +20,8 @@ class MainScreenVM: BaseVM<MainScreenVMStateChange> {
     
     //MARK: - Responses
     var getPopularMoviesResponse = BehaviorRelay<[MovieResponseModel]>(value: [])
-    var getPopularPeoplesResponse = BehaviorRelay<[PeopleResponseModel]>(value: [])
-    var getMultiSearchResponse = BehaviorRelay<[MultiSearchResponseModel]>(value: [])
+    var getSearchMoviesResponse = BehaviorRelay<[MovieResponseModel]>(value: [])
+    var getSearchPeoplesResponse = BehaviorRelay<[PeopleResponseModel]>(value: [])
     
     //MARK: - Requests
     func getPopularMovies() -> Observable<BasePaginationResponseModel<MovieResponseModel>>{
@@ -38,19 +38,34 @@ class MainScreenVM: BaseVM<MainScreenVMStateChange> {
         return Networking.request(router: PeopleRouter.popular(queryStringRequest: queryStringRequest))
     }
     
-    func getMultiSearch(searchText: String?) -> Observable<BasePaginationResponseModel<MultiSearchResponseModel>>? {
-        guard let validatedSearchText = searchText else { return nil }
+    func getSearchMovies(searchText: String) -> Observable<BasePaginationResponseModel<MovieResponseModel>> {
         let queryStringRequest = BaseQueryStringRequestModel(apiKey: "d5155429a4ca75afc8742180a5108788",
                                                              language: "en-US",
                                                              page: "1",
-                                                             query: validatedSearchText)
-        return Networking.request(router: SearchRouter.mutliSearch(queryStringRequest: queryStringRequest))
+                                                             query: searchText)
+        return Networking.request(router: SearchRouter.movies(queryStringRequest: queryStringRequest))
+    }
+    
+    func getSearchPeoples(searchText: String) -> Observable<BasePaginationResponseModel<PeopleResponseModel>> {
+        let queryStringRequest = BaseQueryStringRequestModel(apiKey: "d5155429a4ca75afc8742180a5108788",
+                                                             language: "en-US",
+                                                             page: "1",
+                                                             query: searchText)
+        return Networking.request(router: SearchRouter.people(queryStringRequest: queryStringRequest))
     }
     
     //MARK: - Helper Methods
     private func getSectionType(section: Int) -> MainScreenVCSectionTypes {
         guard let validatedSectionType = MainScreenVCSectionTypes(rawValue: section) else { return .movies }
         return validatedSectionType
+    }
+    
+    func shouldCallSearch(by textField: UITextField) -> Bool {
+        return textField.text != nil && textField.text != "" && textField.text != " "
+    }
+    
+    func shouldCallPopularMovies(by textField: UITextField) -> Bool {
+        return !shouldCallSearch(by: textField)
     }
 }
 
@@ -89,11 +104,12 @@ extension MainScreenVM: UITableViewDataSource {
             switch getSectionType(section: indexPath.section) {
             case .movies:
                 let cell = tableView.dequeueCell(withType: MoviesTableViewCell.self, for: indexPath) as! MoviesTableViewCell
-                cell.moviesBehaviorRelay.accept(getPopularMoviesResponse.value)
+                cell.moviesSearchBehaviorRelay.accept(getSearchMoviesResponse.value)
                 cell.collectionView.reloadData()
                 return cell
             case .peoples:
                 let cell = tableView.dequeueCell(withType: PeopleTableViewCell.self, for: indexPath) as! PeopleTableViewCell
+                cell.peopleSearchBehaviorRelay.accept(getSearchPeoplesResponse.value)
                 cell.collectionView.reloadData()
                 return cell
             }
@@ -126,5 +142,21 @@ extension MainScreenVM: UITableViewDataSource {
                 return L10n.searchPeopleHeaderTitle
             }
         }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if section == 0 {
+            let view = UIView()
+            view.backgroundColor = .clear
+            return view
+        }
+        return nil
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 55
+        }
+        return 40
     }
 }

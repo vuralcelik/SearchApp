@@ -34,7 +34,7 @@ class CustomSearchBarView: BaseView {
     //MARK: - UI Configuration
     override func setupViews() {
         super.setupViews()
-        backgroundColor = .clear
+        backgroundColor = ColorName.customWhite.color
         
         addSubview(containerStackView)
     }

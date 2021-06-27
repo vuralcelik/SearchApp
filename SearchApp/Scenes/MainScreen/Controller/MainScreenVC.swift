@@ -38,6 +38,34 @@ class MainScreenVC: BaseVC {
     //MARK: - Properties
     let mainScreenVM = MainScreenVM()
     
+    //MARK: - Events
+    override func bindEvents() {
+        customSearchBar
+            .customTextFieldView
+            .textField
+            .rx
+            .controlEvent([.editingChanged])
+            .asObservable()
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else { return }
+                let textField = self.customSearchBar.customTextFieldView.textField
+                if self.mainScreenVM.shouldCallSearch(by: textField) {
+                    self.getSearchMoviesAndPeoples(searchText: textField.text)
+                }
+            }).disposed(by: disposeBag)
+        
+        customSearchBar
+            .customButton
+            .rx
+            .tap
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.getPopularMovies()
+                self.customSearchBar.customTextFieldView.textField.text = nil
+                self.view.endEditing(true)
+            }).disposed(by: disposeBag)
+    }
+    
     //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,12 +75,17 @@ class MainScreenVC: BaseVC {
     //MARK: - UI Configuration
     override func setupViews() {
         super.setupViews()
-        
         view.addSubview(tableView)
+        view.addSubview(customSearchBar)
+        view.bringSubviewToFront(customSearchBar)
     }
     
     override func setupLayout() {
         super.setupLayout()
+        customSearchBar.snp.makeConstraints { (make) in
+            make.top.leading.trailing.equalToSuperview()
+            make.height.equalTo(55)
+        }
         
         tableView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
@@ -61,15 +94,8 @@ class MainScreenVC: BaseVC {
     
     override func setupNavBar() {
         super.setupNavBar()
-        setupSearchBar()
+        navigationItem.title = L10n.searchNavTitle
     }
-    
-    private func setupSearchBar() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: customSearchBar)
-        customSearchBar.sizeToFit()
-    }
-    
-    //MARK: - Helper Methods
     
     //MARK: - Service Calls
     private func getPopularMovies() {
@@ -85,18 +111,22 @@ class MainScreenVC: BaseVC {
         }).disposed(by: disposeBag)
     }
 
-    
-    private func getMultiSearch(searchText: String?) {
-        mainScreenVM.getMultiSearch(searchText: searchText)?.subscribe(
-        onNext: { [weak self] (response: BasePaginationResponseModel<MultiSearchResponseModel>) in
-            guard let self = self else { return }
-            self.mainScreenVM.getMultiSearchResponse.accept(response.results ?? [])
-            self.mainScreenVM.searchType = .multiSearch
-            self.tableView.reloadData()
-        },
-        onError: { (error) in
-            ///TODO - Make error pop up
-        }).disposed(by: disposeBag)
+    private func getSearchMoviesAndPeoples(searchText: String?) {
+        guard let validatedSearchText = searchText else { return }
+        Observable.zip(mainScreenVM.getSearchMovies(searchText: validatedSearchText),
+                       mainScreenVM.getSearchPeoples(searchText: validatedSearchText))
+            .observe(on: MainScheduler.asyncInstance)
+            .subscribe { [weak self] (movies, peoples) in
+                guard let self = self else { return }
+                self.mainScreenVM.getSearchMoviesResponse.accept(movies.results ?? [])
+                self.mainScreenVM.getSearchPeoplesResponse.accept(peoples.results ?? [])
+                self.mainScreenVM.searchType = .multiSearch
+                self.tableView.reloadData()
+            }
+            onError: { (error) in
+                ///TODO - Make error pop up
+            }.disposed(by: disposeBag)
+
     }
     
     //MARK: - Navigations

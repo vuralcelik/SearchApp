@@ -32,13 +32,21 @@ class PeopleCell: BaseCollectionViewCell {
         let view = UILabel()
         view.backgroundColor = .clear
         view.textAlignment = .center
-        view.text = "asdlkasjdlkkasdlas"
         view.numberOfLines = 0
         view.font = FontFamily.SourceSansPro.bold.font(size: 16)
         view.textColor = ColorName.customBlack.color
         view.setContentHuggingPriority(UILayoutPriority(1000), for: .vertical)
         return view
     }()
+    
+    //MARK: - Computed Properties
+    var peopleSearchModel: PeopleResponseModel? {
+        didSet {
+            guard let validatedPeopleSearchModel = peopleSearchModel else { return }
+            peopleNameLabel.text = validatedPeopleSearchModel.name
+            ImageManager.setImage(imageView: peopleProfileImageView, urlString: validatedPeopleSearchModel.profilePath)
+        }
+    }
     
     //MARK: - Life Cycle
     override func commonInit() {

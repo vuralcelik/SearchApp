@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxCocoa
 
 class PeopleTableViewCell: BaseTableViewCell {
     //MARK: - Views
@@ -24,6 +25,9 @@ class PeopleTableViewCell: BaseTableViewCell {
         view.dataSource = self
         return view
     }()
+    
+    //MARK: - Computed Properties
+    var peopleSearchBehaviorRelay = BehaviorRelay<[PeopleResponseModel]>(value: [])
     
     //MARK: - Life Cycle
     override func commonInit() {
@@ -52,12 +56,12 @@ class PeopleTableViewCell: BaseTableViewCell {
 //MARK: - UICollectionView DataSource Methods
 extension PeopleTableViewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 20
+        return peopleSearchBehaviorRelay.value.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueCell(withType: PeopleCell.self, for: indexPath) as! PeopleCell
-        
+        cell.peopleSearchModel = peopleSearchBehaviorRelay.value[indexPath.row]
         return cell
     }
 }

@@ -8,39 +8,50 @@
 import Alamofire
 
 enum SearchRouter: RouterProvider {
-    case mutliSearch(queryStringRequest: BaseQueryStringRequestModel)
+    case movies(queryStringRequest: BaseQueryStringRequestModel)
+    case people(queryStringRequest: BaseQueryStringRequestModel)
 
     var method: HTTPMethod {
         switch self {
-        case .mutliSearch:
+        case .movies:
+            return .get
+        case .people:
             return .get
         }
     }
 
     var path: String {
         switch self {
-        case .mutliSearch:
-            return "/search/multi"
+        case .movies:
+            return "/search/movie"
+        case .people:
+            return "/search/person"
         }
     }
 
     var queryParameters: QueryStringParameters {
         switch self {
-        case .mutliSearch(let queryStringRequest):
+        case .movies(let queryStringRequest):
+            return queryStringRequest.asDictionaryForQueryString
+        case .people(let queryStringRequest):
             return queryStringRequest.asDictionaryForQueryString
         }
     }
 
     var httpBody: Data? {
         switch self {
-        case .mutliSearch:
+        case .movies:
+            return nil
+        case .people:
             return nil
         }
     }
 
     var headers: [CustomHTTPHeader]? {
         switch self {
-        case .mutliSearch:
+        case .movies:
+            return [.contentType]
+        case .people:
             return [.contentType]
         }
     }

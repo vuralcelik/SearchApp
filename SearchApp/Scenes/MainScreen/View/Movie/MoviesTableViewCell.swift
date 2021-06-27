@@ -33,7 +33,7 @@ class MoviesTableViewCell: BaseTableViewCell {
     }()
     
     //MARK: - Computed Properties
-    var moviesBehaviorRelay = BehaviorRelay<[MovieResponseModel]>(value: [])
+    var moviesSearchBehaviorRelay = BehaviorRelay<[MovieResponseModel]>(value: [])
     
     //MARK: - Properties
     var disposeBag = DisposeBag()
@@ -80,12 +80,12 @@ class MoviesTableViewCell: BaseTableViewCell {
 //MARK: - UICollectionView DataSource Methods
 extension MoviesTableViewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return moviesBehaviorRelay.value.count
+        return moviesSearchBehaviorRelay.value.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueCell(withType: MovieCell.self, for: indexPath) as! MovieCell
-        cell.movieModel = moviesBehaviorRelay.value[indexPath.row]
+        cell.movieSearchModel = moviesSearchBehaviorRelay.value[indexPath.row]
         return cell
     }
 }
