@@ -14,8 +14,12 @@ internal enum L10n {
   internal static let searchBarCancelTitle = L10n.tr("Localizable", "search_bar_cancel_title")
   /// Search movie or artist
   internal static let searchBarPlaceholderText = L10n.tr("Localizable", "search_bar_placeholder_text")
+  /// Movies
+  internal static let searchMovieHeaderTitle = L10n.tr("Localizable", "search_movie_header_title")
   /// Search
   internal static let searchNavTitle = L10n.tr("Localizable", "search_nav_title")
+  /// Peoples
+  internal static let searchPeopleHeaderTitle = L10n.tr("Localizable", "search_people_header_title")
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:enable nesting type_body_length type_name vertical_whitespace_opening_braces

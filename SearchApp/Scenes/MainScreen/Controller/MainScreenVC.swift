@@ -27,7 +27,9 @@ class MainScreenVC: BaseVC {
         let view = UITableView()
         view.separatorStyle = .none
         view.backgroundColor = .clear
-        view.registerCells(types: [MovieCell.self])
+        view.rx.setDelegate(mainScreenVM).disposed(by: disposeBag)
+        view.rx.setDataSource(mainScreenVM).disposed(by: disposeBag)
+        view.registerCells(types: [MoviesTableViewCell.self])
         return view
     }()
     
@@ -37,18 +39,7 @@ class MainScreenVC: BaseVC {
     //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        bindTableView()
         getPopularMovies()
-    }
-    
-    //MARK: - Events
-    override func bindEvents() {
-        tableView
-        .rx
-        .itemSelected
-        .subscribe(onNext: { [weak self] indexPath in
-            self?.navigateToMovieDetail()
-        }).disposed(by: disposeBag)
     }
     
     //MARK: - UI Configuration
@@ -77,23 +68,17 @@ class MainScreenVC: BaseVC {
     }
     
     //MARK: - Helper Methods
-    private func bindTableView() {
-        mainScreenVM.getPopularMoviesResponse
-        .asObservable()
-        .bind(to: tableView.rx.items(cellIdentifier: MovieCell.identifier, cellType: MovieCell.self)) {_, movie, cell in
-            cell.movieModel = movie
-        }.disposed(by: disposeBag)
-    }
     
     //MARK: - Service Calls
     private func getPopularMovies() {
         mainScreenVM.getPopularMovies().subscribe(
         onNext: { [weak self] (response: BasePaginationResponseModel<MovieResponseModel>) in
-            self?.mainScreenVM.getPopularMoviesResponse.accept(response.results ?? [])
-            self?.tableView.reloadData()
+            guard let self = self else { return }
+            self.mainScreenVM.getPopularPeoplesResponse.accept(response.results ?? [])
+            self.tableView.reloadData()
         },
         onError: { (error) in
-            
+            ///TODO - Make error pop up
         }).disposed(by: disposeBag)
     }
     

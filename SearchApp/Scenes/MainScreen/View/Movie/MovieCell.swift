@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MovieCell: BaseTableViewCell {
+class MovieCell: BaseCollectionViewCell {
     //MARK: - Views
     lazy var containerStackView: UIStackView = {
         let view = UIStackView(arrangedSubviews: [moviePosterImageView,
@@ -23,13 +23,14 @@ class MovieCell: BaseTableViewCell {
     lazy var moviePosterImageView: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleAspectFill
+        view.backgroundColor = .red
         return view
     }()
     
     lazy var informationContainerStackView: UIStackView = {
         let view = UIStackView(arrangedSubviews: [movieTitleLabel,
                                                   movieVoteLabel])
-        view.backgroundColor = .clear
+        view.backgroundColor = .yellow
         view.axis = .horizontal
         view.alignment = .center
         view.distribution = .fill
