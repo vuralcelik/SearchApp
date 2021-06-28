@@ -8,6 +8,10 @@
 import UIKit
 import RxCocoa
 
+protocol PeopleTableViewCellDelegate: class {
+    func itemSelectedInPeopleCollectionView(index: Int)
+}
+
 class PeopleTableViewCell: BaseTableViewCell {
     //MARK: - Views
     lazy var collectionView: UICollectionView = {
@@ -22,12 +26,16 @@ class PeopleTableViewCell: BaseTableViewCell {
         view.bounces = true
         view.backgroundColor = .clear
         view.registerCells(types: [PeopleCell.self])
+        view.delegate = self
         view.dataSource = self
         return view
     }()
     
     //MARK: - Computed Properties
     var peopleSearchBehaviorRelay = BehaviorRelay<[PeopleResponseModel]>(value: [])
+    
+    //MARK: - Properties
+    weak var delegate: PeopleTableViewCellDelegate?
     
     //MARK: - Life Cycle
     override func commonInit() {
@@ -59,5 +67,12 @@ extension PeopleTableViewCell: UICollectionViewDataSource {
         let cell = collectionView.dequeueCell(withType: PeopleCell.self, for: indexPath) as! PeopleCell
         cell.peopleSearchModel = peopleSearchBehaviorRelay.value[indexPath.row]
         return cell
+    }
+}
+
+//MARK: - UICollectionView Delegate Methods
+extension PeopleTableViewCell: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        delegate?.itemSelectedInPeopleCollectionView(index: indexPath.row)
     }
 }

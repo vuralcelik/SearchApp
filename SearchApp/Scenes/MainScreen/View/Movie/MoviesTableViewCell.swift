@@ -28,6 +28,7 @@ class MoviesTableViewCell: BaseTableViewCell {
         view.bounces = true
         view.backgroundColor = .clear
         view.registerCells(types: [MovieCell.self])
+        view.delegate = self
         view.dataSource = self
         return view
     }()
@@ -38,27 +39,6 @@ class MoviesTableViewCell: BaseTableViewCell {
     //MARK: - Properties
     var disposeBag = DisposeBag()
     weak var delegate: MoviesCollectionViewCellDelegate?
-    
-    //MARK: - Events
-    private func initializeEvents() {
-        collectionView
-        .rx
-        .itemSelected
-        .subscribe(onNext:{ [weak self] indexPath in
-            self?.delegate?.itemSelectedAtMoviesCollectionView(index: indexPath.row)
-        }).disposed(by: disposeBag)
-    }
-    
-    //MARK: - Life Cycle
-    override func commonInit() {
-        super.commonInit()
-        initializeEvents()
-    }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        disposeBag = DisposeBag()
-    }
     
     //MARK: - UI Configuration
     override func setupViews() {
@@ -84,5 +64,12 @@ extension MoviesTableViewCell: UICollectionViewDataSource {
         let cell = collectionView.dequeueCell(withType: MovieCell.self, for: indexPath) as! MovieCell
         cell.movieSearchModel = moviesSearchBehaviorRelay.value[indexPath.row]
         return cell
+    }
+}
+
+//MARK: - UICollectionView Delegate Methods
+extension MoviesTableViewCell: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        delegate?.itemSelectedAtMoviesCollectionView(index: indexPath.row)
     }
 }

@@ -18,3 +18,6 @@
 "movie_detail_informations_header_title" = "Informations";
 "movie_detail_cast_members_header_title" = "Cast Members";
 "movie_detail_videos_header_title" = "Videos";
+
+//PeopleDetailVC
+"people_detail_nav_title" = "People Detail";

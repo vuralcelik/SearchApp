@@ -18,6 +18,8 @@ internal enum L10n {
   internal static let movieDetailNavTitle = L10n.tr("Localizable", "movie_detail_nav_title")
   /// Videos
   internal static let movieDetailVideosHeaderTitle = L10n.tr("Localizable", "movie_detail_videos_header_title")
+  /// People Detail
+  internal static let peopleDetailNavTitle = L10n.tr("Localizable", "people_detail_nav_title")
   /// Cancel
   internal static let searchBarCancelTitle = L10n.tr("Localizable", "search_bar_cancel_title")
   /// Search movie or artist

@@ -10,7 +10,9 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 
-class MainScreenVC: BaseVC {
+class MainScreenVC: BaseVC,
+                    MoviesCollectionViewCellDelegate,
+                    PeopleTableViewCellDelegate {
     //MARK: - Views
     lazy var customSearchBar: CustomSearchBarView = {
         let view = CustomSearchBarView()
@@ -70,20 +72,28 @@ class MainScreenVC: BaseVC {
             .itemSelected
             .subscribe { [weak self] indexPath in
                 guard let self = self,
-                      let validatedSection = indexPath.element?.section,
                       let validatedRow = indexPath.element?.row else { return }
-                switch self.mainScreenVM.getSectionType(section: validatedSection) {
-                case .movies:
+                switch self.mainScreenVM.searchType {
+                case .onlyPopularMovies:
                     self.navigateToMovieDetail(movie: self.mainScreenVM.getMovie(by: validatedRow))
-                case .peoples:
+                default:
                     break
                 }
             }.disposed(by: disposeBag)
     }
     
+    func itemSelectedAtMoviesCollectionView(index: Int) {
+        navigateToMovieDetail(movie: mainScreenVM.getMovie(by: index))
+    }
+    
+    func itemSelectedInPeopleCollectionView(index: Int) {
+        navigateToPeople(people: mainScreenVM.getPeople(by: index))
+    }
+    
     //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        observeViewModel()
         getPopularMovies()
     }
     
@@ -110,6 +120,12 @@ class MainScreenVC: BaseVC {
     override func setupNavBar() {
         super.setupNavBar()
         navigationItem.title = L10n.searchNavTitle
+    }
+    
+    //MARK: - Helper Methods
+    override func observeViewModel() {
+        mainScreenVM.movieCollectionViewCellDelegate = self
+        mainScreenVM.peopleTableViewCellDelegate = self
     }
     
     //MARK: - Service Calls
@@ -148,6 +164,12 @@ class MainScreenVC: BaseVC {
     private func navigateToMovieDetail(movie: MovieResponseModel) {
         let vc = MovieDetailVC()
         vc.movieDetailVM.navigatedMovieBehaviorRelay.accept(movie)
+        push(to: vc)
+    }
+    
+    private func navigateToPeople(people: PeopleResponseModel) {
+        let vc = PeopleDetailVC()
+        vc.peopleDetailVM.navigatedPeopleResponse.accept(people)
         push(to: vc)
     }
 }

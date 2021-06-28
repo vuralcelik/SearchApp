@@ -13,6 +13,8 @@ class MainScreenVM: BaseVM {
     //MARK: - Regular Properties
     var sections = MainScreenVCSectionTypes.allCases
     var searchType: MainScreenVCSearchTypes = .onlyPopularMovies
+    weak var movieCollectionViewCellDelegate: MoviesCollectionViewCellDelegate?
+    weak var peopleTableViewCellDelegate: PeopleTableViewCellDelegate?
     
     //MARK: - Responses
     var getPopularMoviesResponse = BehaviorRelay<[MovieResponseModel]>(value: [])
@@ -72,6 +74,10 @@ class MainScreenVM: BaseVM {
             return getSearchMoviesResponse.value[index]
         }
     }
+    
+    func getPeople(by index: Int) -> PeopleResponseModel {
+        return getSearchPeoplesResponse.value[index]
+    }
 }
 
 //MARK: - UITableView Delegate Methods
@@ -109,11 +115,13 @@ extension MainScreenVM: UITableViewDataSource {
             switch getSectionType(section: indexPath.section) {
             case .movies:
                 let cell = tableView.dequeueCell(withType: MoviesTableViewCell.self, for: indexPath) as! MoviesTableViewCell
+                cell.delegate = movieCollectionViewCellDelegate
                 cell.moviesSearchBehaviorRelay.accept(getSearchMoviesResponse.value)
                 cell.collectionView.reloadData()
                 return cell
             case .peoples:
                 let cell = tableView.dequeueCell(withType: PeopleTableViewCell.self, for: indexPath) as! PeopleTableViewCell
+                cell.delegate = peopleTableViewCellDelegate
                 cell.peopleSearchBehaviorRelay.accept(getSearchPeoplesResponse.value)
                 cell.collectionView.reloadData()
                 return cell
