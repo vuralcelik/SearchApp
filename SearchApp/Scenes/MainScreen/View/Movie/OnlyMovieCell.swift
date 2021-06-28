@@ -16,21 +16,21 @@ class OnlyMovieCell: BaseTableViewCell {
         view.axis = .vertical
         view.alignment = .fill
         view.distribution = .fill
-        view.spacing = 4
+        view.spacing = 0
         return view
     }()
     
     lazy var moviePosterImageView: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleAspectFill
-        view.backgroundColor = .red
+        view.backgroundColor = .clear
         return view
     }()
     
     lazy var informationContainerStackView: UIStackView = {
         let view = UIStackView(arrangedSubviews: [movieTitleLabel,
                                                   movieVoteLabel])
-        view.backgroundColor = .yellow
+        view.backgroundColor = .clear
         view.axis = .horizontal
         view.alignment = .center
         view.distribution = .fill
@@ -64,7 +64,7 @@ class OnlyMovieCell: BaseTableViewCell {
             guard let validatedMovieModel = movieModel else { return }
             movieTitleLabel.text = (validatedMovieModel.title ?? "") + ", " + (validatedMovieModel.releaseDate ?? "")
             movieVoteLabel.text = validatedMovieModel.voteAverage?.description
-            ImageManager.setImage(imageView: moviePosterImageView, urlString: validatedMovieModel.posterPath)
+            moviePosterImageView.setImageWithCaching(urlString: validatedMovieModel.posterPath)
         }
     }
     
@@ -84,7 +84,12 @@ class OnlyMovieCell: BaseTableViewCell {
         super.setupLayout()
         
         containerStackView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview().inset(16)
+            make.edges.equalToSuperview().inset(32)
+        }
+        
+        moviePosterImageView.snp.makeConstraints { (make) in
+            make.width.equalTo(350)
+            make.height.equalTo(611)
         }
     }
 }

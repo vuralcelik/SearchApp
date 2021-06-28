@@ -19,8 +19,8 @@ class PeopleTableViewCell: BaseTableViewCell {
         layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 16
-        let itemWidth = UIScreen.main.bounds.size.width - 32
-        layout.itemSize = CGSize(width: 50, height: 100)
+        layout.itemSize = CGSize(width: 105,
+                                 height: 200)
         layout.scrollDirection = .horizontal
         let view = UICollectionView(frame: frame, collectionViewLayout: layout)
         view.bounces = true

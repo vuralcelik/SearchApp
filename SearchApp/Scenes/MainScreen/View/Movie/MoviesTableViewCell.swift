@@ -21,8 +21,8 @@ class MoviesTableViewCell: BaseTableViewCell {
         layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 16
-        let itemWidth = UIScreen.main.bounds.size.width - 32
-        layout.itemSize = CGSize(width: itemWidth, height: 232)
+        layout.itemSize = CGSize(width: 210,
+                                 height: 400)
         layout.scrollDirection = .horizontal
         let view = UICollectionView(frame: frame, collectionViewLayout: layout)
         view.bounces = true

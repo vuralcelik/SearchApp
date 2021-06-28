@@ -11,8 +11,8 @@ class CoverPhotoCell: BaseTableViewCell {
     //MARK: - Views
     lazy var coverPhotoImageView: UIImageView = {
         let view = UIImageView()
-        view.contentMode = .scaleAspectFill
-        view.backgroundColor = .red
+        view.contentMode = .scaleAspectFit
+        view.backgroundColor = .clear
         return view
     }()
     
@@ -20,7 +20,7 @@ class CoverPhotoCell: BaseTableViewCell {
     var movieModel: MovieResponseModel? {
         didSet {
             guard let validatedMovieModel = movieModel else { return }
-            ImageManager.setImage(imageView: coverPhotoImageView, urlString: validatedMovieModel.posterPath)
+            coverPhotoImageView.setImageWithCaching(urlString: validatedMovieModel.posterPath)
         }
     }
     
@@ -40,8 +40,9 @@ class CoverPhotoCell: BaseTableViewCell {
         super.setupLayout()
         
         coverPhotoImageView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview().inset(32)
-            make.width.equalTo(coverPhotoImageView.snp.height).multipliedBy(0.5)
+            make.width.equalTo(175)
+            make.height.equalTo(305)
+            make.edges.equalToSuperview()
         }
     }
 }

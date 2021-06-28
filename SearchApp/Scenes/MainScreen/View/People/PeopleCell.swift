@@ -16,15 +16,14 @@ class PeopleCell: BaseCollectionViewCell {
         view.axis = .vertical
         view.alignment = .fill
         view.distribution = .fill
-        view.spacing = 4
+        view.spacing = 0
         return view
     }()
     
     lazy var peopleProfileImageView: UIImageView = {
         let view = UIImageView()
-        view.contentMode = .scaleAspectFill
-        view.backgroundColor = .red
-        view.clipsToBounds = true
+        view.contentMode = .scaleAspectFit
+        view.backgroundColor = .clear
         return view
     }()
     
@@ -32,7 +31,7 @@ class PeopleCell: BaseCollectionViewCell {
         let view = UILabel()
         view.backgroundColor = .clear
         view.textAlignment = .center
-        view.numberOfLines = 0
+        view.numberOfLines = 1
         view.font = FontFamily.SourceSansPro.bold.font(size: 16)
         view.textColor = ColorName.customBlack.color
         view.setContentHuggingPriority(UILayoutPriority(1000), for: .vertical)
@@ -44,7 +43,7 @@ class PeopleCell: BaseCollectionViewCell {
         didSet {
             guard let validatedPeopleSearchModel = peopleSearchModel else { return }
             peopleNameLabel.text = validatedPeopleSearchModel.name
-            ImageManager.setImage(imageView: peopleProfileImageView, urlString: validatedPeopleSearchModel.profilePath)
+            peopleProfileImageView.setImageWithCaching(urlString: validatedPeopleSearchModel.profilePath)
         }
     }
     
@@ -65,6 +64,11 @@ class PeopleCell: BaseCollectionViewCell {
         
         containerStackView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview().inset(16)
+        }
+        
+        peopleProfileImageView.snp.makeConstraints { (make) in
+            make.width.equalTo(100)
+            make.height.equalTo(150)
         }
     }
 }

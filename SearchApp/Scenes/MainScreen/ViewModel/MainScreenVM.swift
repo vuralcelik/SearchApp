@@ -132,13 +132,13 @@ extension MainScreenVM: UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch searchType {
         case .onlyPopularMovies:
-            return 500
+            return UITableView.automaticDimension
         case .multiSearch:
             switch getSectionType(section: indexPath.section) {
             case .movies:
-                return 350
+                return 400
             case .peoples:
-                return 132
+                return 200
             }
         }
     }

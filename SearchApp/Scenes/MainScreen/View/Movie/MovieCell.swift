@@ -16,25 +16,25 @@ class MovieCell: BaseCollectionViewCell {
         view.axis = .vertical
         view.alignment = .fill
         view.distribution = .fill
-        view.spacing = 4
+        view.spacing = 0
         return view
     }()
     
     lazy var moviePosterImageView: UIImageView = {
         let view = UIImageView()
-        view.contentMode = .scaleAspectFill
-        view.backgroundColor = .red
+        view.contentMode = .scaleAspectFit
+        view.backgroundColor = .clear
         return view
     }()
     
     lazy var informationContainerStackView: UIStackView = {
         let view = UIStackView(arrangedSubviews: [movieTitleLabel,
                                                   movieVoteLabel])
-        view.backgroundColor = .yellow
-        view.axis = .horizontal
+        view.backgroundColor = .clear
+        view.axis = .vertical
         view.alignment = .center
         view.distribution = .fill
-        view.spacing = 4
+        view.spacing = 0
         return view
     }()
     
@@ -42,7 +42,7 @@ class MovieCell: BaseCollectionViewCell {
         let view = UILabel()
         view.backgroundColor = .clear
         view.textAlignment = .left
-        view.numberOfLines = 0
+        view.numberOfLines = 1
         view.font = FontFamily.SourceSansPro.bold.font(size: 16)
         view.textColor = ColorName.customBlack.color
         return view
@@ -64,7 +64,7 @@ class MovieCell: BaseCollectionViewCell {
             guard let validatedMovieSearchModel = movieSearchModel else { return }
             movieTitleLabel.text = (validatedMovieSearchModel.title ?? "") + ", " + (validatedMovieSearchModel.releaseDate ?? "")
             movieVoteLabel.text = validatedMovieSearchModel.voteAverage?.description
-            ImageManager.setImage(imageView: moviePosterImageView, urlString: validatedMovieSearchModel.posterPath)
+            moviePosterImageView.setImageWithCaching(urlString: validatedMovieSearchModel.posterPath)
         }
     }
     
@@ -85,6 +85,11 @@ class MovieCell: BaseCollectionViewCell {
         
         containerStackView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview().inset(16)
+        }
+        
+        moviePosterImageView.snp.makeConstraints { (make) in
+            make.width.equalTo(175)
+            make.height.equalTo(305)
         }
     }
 }

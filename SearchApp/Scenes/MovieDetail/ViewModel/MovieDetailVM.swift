@@ -77,5 +77,14 @@ extension MovieDetailVM: UITableViewDataSource {
             return L10n.movieDetailVideosHeaderTitle
         }
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch getSectionType(section: indexPath.section) {
+        case .coverPhoto:
+            return 305
+        default:
+            return UITableView.automaticDimension
+        }
+    }
 }
 
