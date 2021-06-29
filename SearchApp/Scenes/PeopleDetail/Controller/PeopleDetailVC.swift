@@ -31,7 +31,7 @@ class PeopleDetailVC: BaseVC {
     lazy var coverPhotoImageView: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleAspectFill
-        view.backgroundColor = .red
+        view.backgroundColor = .clear
         return view
     }()
     
@@ -121,6 +121,11 @@ class PeopleDetailVC: BaseVC {
         
         descriptionContainerStackView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview().inset(16)
+        }
+        
+        coverPhotoImageView.snp.makeConstraints { (make) in
+            make.width.equalTo(175)
+            make.height.equalTo(305)
         }
     }
     
