@@ -9,10 +9,14 @@ import Alamofire
 
 enum MovieRouter: RouterProvider {
     case popular(queryStringRequest: BaseQueryStringRequestModel)
+    case credits(pathVariableRequest: MovieCreditsPathVariableRequestModel,
+                 queryStringRequest: BaseQueryStringRequestModel)
 
     var method: HTTPMethod {
         switch self {
         case .popular:
+            return .get
+        case .credits:
             return .get
         }
     }
@@ -21,12 +25,16 @@ enum MovieRouter: RouterProvider {
         switch self {
         case .popular:
             return "/movie/popular"
+        case .credits(let pathVariableRequest, _):
+            return "/movie/\(pathVariableRequest.id)/credits"
         }
     }
 
     var queryParameters: QueryStringParameters {
         switch self {
         case .popular(let queryStringRequest):
+            return queryStringRequest.asDictionaryForQueryString
+        case .credits(_, let queryStringRequest):
             return queryStringRequest.asDictionaryForQueryString
         }
     }
@@ -35,12 +43,16 @@ enum MovieRouter: RouterProvider {
         switch self {
         case .popular:
             return nil
+        case .credits:
+            return nil
         }
     }
 
     var headers: [CustomHTTPHeader]? {
         switch self {
         case .popular:
+            return [.contentType]
+        case .credits:
             return [.contentType]
         }
     }

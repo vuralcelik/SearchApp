@@ -13,19 +13,26 @@ class MovieDetailVM: BaseVM {
     //MARK: - Regular Properties
     var sections = MovieDetailVCSectionTypes.allCases
     
+    //MARK: - Responses
+    var movieCreditsResponse = BehaviorRelay<MovieCreditsResponseModel>(value: MovieCreditsResponseModel())
+    
     //MARK: - Navigated Properties
     var navigatedMovieBehaviorRelay = BehaviorRelay<MovieResponseModel?>(value: nil)
+    
+    //MARK: - Requests
+    func getMovieCredits() -> Observable<MovieCreditsResponseModel> {
+        let pathVariableRequest = MovieCreditsPathVariableRequestModel(id: navigatedMovieBehaviorRelay.value?.id ?? 0)
+        let queryStringRequest = BaseQueryStringRequestModel(apiKey: "d5155429a4ca75afc8742180a5108788",
+                                                             language: "en-US")
+        return Networking.request(router: MovieRouter.credits(pathVariableRequest: pathVariableRequest,
+                                                              queryStringRequest: queryStringRequest))
+    }
     
     //MARK: - Helper Methods
     func getSectionType(section: Int) -> MovieDetailVCSectionTypes {
         guard let validatedSectionType = MovieDetailVCSectionTypes(rawValue: section) else { return .coverPhoto }
         return validatedSectionType
     }
-}
-
-//MARK: - UITableView Delegate Methods
-extension MovieDetailVM: UITableViewDelegate {
-    
 }
 
 //MARK: - UITableView DataSource Methods
@@ -41,7 +48,8 @@ extension MovieDetailVM: UITableViewDataSource {
         case .information:
             return 1
         case .castMembers:
-            return 1
+            guard let validatedCount = movieCreditsResponse.value.cast?.count else { return 0 }
+            return validatedCount
         case .videos:
             return 1
         }
@@ -58,7 +66,14 @@ extension MovieDetailVM: UITableViewDataSource {
             cell.movieModel = navigatedMovieBehaviorRelay.value
             return cell
         case .castMembers:
-            return UITableViewCell()
+            let cell = tableView.dequeueCell(withType: MoviesTableViewCell.self, for: indexPath) as! MoviesTableViewCell
+//            cell.delegate = movieCollectionViewCellDelegate
+            guard let validatedCastModel = movieCreditsResponse.value.cast else {
+                return cell
+            }
+            cell.moviesBehaviorRelay.accept(validatedCastModel)
+            cell.collectionView.reloadData()
+            return cell
         case .videos:
             let cell = tableView.dequeueCell(withType: MovieDetailLinkCell.self, for: indexPath) as! MovieDetailLinkCell
             return cell
@@ -82,6 +97,8 @@ extension MovieDetailVM: UITableViewDataSource {
         switch getSectionType(section: indexPath.section) {
         case .coverPhoto:
             return 305
+        case .castMembers:
+            return 400
         default:
             return UITableView.automaticDimension
         }

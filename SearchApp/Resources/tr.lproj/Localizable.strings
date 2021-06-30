@@ -6,12 +6,17 @@
   
 */
 
+//PopUp
+"pop_up_error_title" = "Error";
+"pop_up_button_okay_title" = "Okay";
+
 //Search
 "search_nav_title" = "Search";
 "search_bar_placeholder_text" = "Search movie or artist";
 "search_bar_cancel_title" = "Cancel";
 "search_movie_header_title" = "Movies";
 "search_people_header_title" = "Peoples";
+"search_empty_info_title" = "There is no data yet.";
 
 //MovieDetailVC
 "movie_detail_nav_title" = "Movie Detail";
@@ -20,4 +25,5 @@
 "movie_detail_videos_header_title" = "Videos";
 
 //PeopleDetailVC
+"people_detail_credit_title" = "Credits";
 "people_detail_nav_title" = "People Detail";

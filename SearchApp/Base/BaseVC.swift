@@ -64,6 +64,13 @@ class BaseVC: UIViewController {
     
     func observeViewModel() {}
     
+    func showError(description: String? = nil) {
+        PopUpManager.showPopUp(fromVC: self,
+                               title: L10n.popUpErrorTitle,
+                               description: description,
+                               buttonTitle: L10n.popUpButtonOkayTitle)
+    }
+    
     //MARK: - Navigations
     func push(to: UIViewController, animated: Bool = true) {
         navigationController?.pushViewController(to, animated: animated)

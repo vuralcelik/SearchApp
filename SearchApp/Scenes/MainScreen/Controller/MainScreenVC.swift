@@ -29,11 +29,13 @@ class MainScreenVC: BaseVC,
         let view = UITableView()
         view.separatorStyle = .none
         view.backgroundColor = .clear
+        view.bounces = true
         view.rx.setDelegate(mainScreenVM).disposed(by: disposeBag)
         view.rx.setDataSource(mainScreenVM).disposed(by: disposeBag)
         view.registerCells(types: [MoviesTableViewCell.self,
                                    PeopleTableViewCell.self,
-                                   OnlyMovieCell.self])
+                                   OnlyMovieCell.self,
+                                   EmptyStateCell.self])
         return view
     }()
     
@@ -51,8 +53,9 @@ class MainScreenVC: BaseVC,
             .subscribe(onNext: { [weak self] in
                 guard let self = self else { return }
                 let textField = self.customSearchBar.customTextFieldView.textField
+                self.mainScreenVM.searchText = textField.text
                 if self.mainScreenVM.shouldCallSearch(by: textField) {
-                    self.getSearchMoviesAndPeoples(searchText: textField.text)
+                    self.getSearchMoviesAndPeoples(searchText: self.mainScreenVM.searchText)
                 }
             }).disposed(by: disposeBag)
         
@@ -80,6 +83,22 @@ class MainScreenVC: BaseVC,
                     break
                 }
             }.disposed(by: disposeBag)
+        
+        mainScreenVM.scrollViewDidScrollPublishSubject
+            .asObservable()
+            .subscribe { [weak self] (scrollViewEvent) in
+                guard let self = self else { return }
+                if self.mainScreenVM.searchType == .onlyPopularMovies {
+                    guard let scrollView = scrollViewEvent.element else { return }
+                    let pulledOffset = (scrollView.contentOffset.y + scrollView.frame.size.height)
+                    let contentHeight = scrollView.contentSize.height
+                    if ((pulledOffset > contentHeight) && !self.mainScreenVM.isLoadingList) {
+                        self.mainScreenVM.isLoadingList = true
+                        self.getPopularMovies()
+                    }
+                }
+            }.disposed(by: disposeBag)
+
     }
     
     func itemSelectedAtMoviesCollectionView(index: Int) {
@@ -88,6 +107,28 @@ class MainScreenVC: BaseVC,
     
     func itemSelectedInPeopleCollectionView(index: Int) {
         navigateToPeople(people: mainScreenVM.getPeople(by: index))
+    }
+    
+    func scrollViewDidScrollInSearchMoviesCollection(_ scrollView: UIScrollView) {
+        if mainScreenVM.searchType == .multiSearch {
+            let pulledOffset = (scrollView.contentOffset.x + scrollView.frame.size.width)
+            let contentHeight = scrollView.contentSize.width
+            if ((pulledOffset > contentHeight) && !self.mainScreenVM.isLoadingList){
+                self.mainScreenVM.isLoadingList = true
+                self.getSearchOnlyMovies()
+            }
+        }
+    }
+    
+    func scrollViewDidScrollInSearchPeoplesCollection(_ scrollView: UIScrollView) {
+        if mainScreenVM.searchType == .multiSearch {
+            let pulledOffset = (scrollView.contentOffset.x + scrollView.frame.size.width)
+            let contentHeight = scrollView.contentSize.width
+            if ((pulledOffset > contentHeight) && !self.mainScreenVM.isLoadingList){
+                self.mainScreenVM.isLoadingList = true
+                self.getSearchOnlyPeoples()
+            }
+        }
     }
     
     //MARK: - Life Cycle
@@ -130,20 +171,30 @@ class MainScreenVC: BaseVC,
     
     //MARK: - Service Calls
     private func getPopularMovies() {
-        mainScreenVM.getPopularMovies().subscribe(
-        onNext: { [weak self] (response: BasePaginationResponseModel<MovieResponseModel>) in
+        PopUpManager.showLoading(fromVC: self) { [weak self] (loadingVC) in
             guard let self = self else { return }
-            self.mainScreenVM.getPopularMoviesResponse.accept(response.results ?? [])
-            self.mainScreenVM.searchType = .onlyPopularMovies
-            self.tableView.reloadData()
-        },
-        onError: { (error) in
-            ///TODO - Make error pop up
-        }).disposed(by: disposeBag)
+            self.mainScreenVM.getPopularMovies().subscribe
+            { [weak self] (response: BasePaginationResponseModel<MovieResponseModel>) in
+                guard let self = self else { return }
+                let lastMovies = self.mainScreenVM.getPopularMoviesResponse.value
+                self.mainScreenVM.getPopularMoviesResponse.accept(lastMovies + (response.results ?? []))
+                self.mainScreenVM.searchType = .onlyPopularMovies
+                self.tableView.reloadData()
+                self.mainScreenVM.isLoadingList = false
+                loadingVC.dismiss(animated: true)
+            } onError: { [weak self] (error) in
+                guard let self = self else { return }
+                self.mainScreenVM.isLoadingList = false
+                loadingVC.dismiss(animated: true) { [weak self] in
+                    self?.showError(description: error.localizedDescription)
+                }
+            }.disposed(by: self.disposeBag)
+        }
     }
 
     private func getSearchMoviesAndPeoples(searchText: String?) {
         guard let validatedSearchText = searchText else { return }
+        mainScreenVM.clearPageNumbersForNewSearch()
         Observable.zip(mainScreenVM.getSearchMovies(searchText: validatedSearchText),
                        mainScreenVM.getSearchPeoples(searchText: validatedSearchText))
             .observe(on: MainScheduler.asyncInstance)
@@ -153,11 +204,57 @@ class MainScreenVC: BaseVC,
                 self.mainScreenVM.getSearchPeoplesResponse.accept(peoples.results ?? [])
                 self.mainScreenVM.searchType = .multiSearch
                 self.tableView.reloadData()
+                self.mainScreenVM.isLoadingList = false
             }
-            onError: { (error) in
-                ///TODO - Make error pop up
+            onError: { [weak self] (error) in
+                guard let self = self else { return }
+                self.mainScreenVM.isLoadingList = false
+                self.showError(description: error.localizedDescription)
             }.disposed(by: disposeBag)
-
+    }
+    
+    private func getSearchOnlyMovies() {
+        mainScreenVM.searchMoviesCurrentPage += 1
+        PopUpManager.showLoading(fromVC: self) { [weak self] (loadingVC) in
+            guard let self = self else { return }
+            guard let validatedSearchText = self.mainScreenVM.searchText else { return }
+            self.mainScreenVM.getSearchMovies(searchText: validatedSearchText)
+                .subscribe { [weak self] (response: BasePaginationResponseModel<MovieResponseModel>) in
+                    guard let self = self else { return }
+                    let lastMovies = self.mainScreenVM.getSearchMoviesResponse.value
+                    self.mainScreenVM.getSearchMoviesResponse.accept(lastMovies + (response.results ?? []))
+                    self.tableView.reloadData()
+                    self.mainScreenVM.isLoadingList = false
+                    loadingVC.dismiss(animated: true)
+                } onError: { [weak self] (error) in
+                    guard let self = self else { return }
+                    self.mainScreenVM.isLoadingList = false
+                    loadingVC.dismiss(animated: true) { [weak self] in
+                        self?.showError(description: error.localizedDescription)
+                    }
+                }.disposed(by: self.disposeBag)
+        }
+    }
+    
+    private func getSearchOnlyPeoples() {
+        mainScreenVM.searchPeoplesCurrentPage += 1
+        PopUpManager.showLoading(fromVC: self) { [weak self] (loadingVC) in
+            guard let self = self else { return }
+            guard let validatedSearchText = self.mainScreenVM.searchText else { return }
+            self.mainScreenVM.getSearchPeoples(searchText: validatedSearchText)
+                .subscribe { [weak self] (response: BasePaginationResponseModel<PeopleResponseModel>) in
+                    guard let self = self else { return }
+                    let lastPeoples = self.mainScreenVM.getSearchPeoplesResponse.value
+                    self.mainScreenVM.getSearchPeoplesResponse.accept(lastPeoples + (response.results ?? []))
+                    self.tableView.reloadData()
+                    loadingVC.dismiss(animated: true)
+                } onError: { [weak self] (error) in
+                    guard let self = self else { return }
+                    loadingVC.dismiss(animated: true) { [weak self] in
+                        self?.showError(description: error.localizedDescription)
+                    }
+                }.disposed(by: self.disposeBag)
+        }
     }
     
     //MARK: - Navigations

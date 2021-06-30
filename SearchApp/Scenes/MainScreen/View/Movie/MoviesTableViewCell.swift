@@ -11,6 +11,7 @@ import RxCocoa
 import RxDataSources
 
 protocol MoviesCollectionViewCellDelegate: class {
+    func scrollViewDidScrollInSearchMoviesCollection(_ scrollView: UIScrollView)
     func itemSelectedAtMoviesCollectionView(index: Int)
 }
 
@@ -34,7 +35,7 @@ class MoviesTableViewCell: BaseTableViewCell {
     }()
     
     //MARK: - Computed Properties
-    var moviesSearchBehaviorRelay = BehaviorRelay<[MovieResponseModel]>(value: [])
+    var moviesBehaviorRelay = BehaviorRelay<[MovieResponseModel]>(value: [])
     
     //MARK: - Properties
     var disposeBag = DisposeBag()
@@ -57,12 +58,12 @@ class MoviesTableViewCell: BaseTableViewCell {
 //MARK: - UICollectionView DataSource Methods
 extension MoviesTableViewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return moviesSearchBehaviorRelay.value.count
+        return moviesBehaviorRelay.value.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueCell(withType: MovieCell.self, for: indexPath) as! MovieCell
-        cell.movieSearchModel = moviesSearchBehaviorRelay.value[indexPath.row]
+        cell.movieSearchModel = moviesBehaviorRelay.value[indexPath.row]
         return cell
     }
 }
@@ -71,5 +72,9 @@ extension MoviesTableViewCell: UICollectionViewDataSource {
 extension MoviesTableViewCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         delegate?.itemSelectedAtMoviesCollectionView(index: indexPath.row)
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        delegate?.scrollViewDidScrollInSearchMoviesCollection(scrollView)
     }
 }

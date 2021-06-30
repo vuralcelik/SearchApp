@@ -27,4 +27,12 @@ extension UITableView {
     func dequeueCell<T: UITableViewCell>(withType type: UITableViewCell.Type, for indexPath: IndexPath) -> T? {
         return dequeueReusableCell(withIdentifier: type.identifier, for: indexPath) as? T
     }
+    
+    func reloadTableViewWithoutAnimation() {
+        UIView.performWithoutAnimation {
+            let loc = self.contentOffset
+            self.reloadData()
+            self.contentOffset = loc
+        }
+    }
 }

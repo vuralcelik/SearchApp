@@ -13,7 +13,7 @@ class Networking {
                                       thread: DispatchQoS.QoSClass? = nil,
                                       shouldShowLoading: Bool = true) -> Observable<T> {
         return Observable<T>.create { (observer) -> Disposable in
-            let request = AF.request(router).responseDecodable { (response: AFDataResponse<T>) in
+            let request = AF.request(router).validate(statusCode: 200..<300).responseDecodable { (response: AFDataResponse<T>) in
                 printLog(response: response)
                 switch response.result {
                 case .success(let baseData):

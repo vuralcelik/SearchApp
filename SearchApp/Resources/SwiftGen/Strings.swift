@@ -18,12 +18,20 @@ internal enum L10n {
   internal static let movieDetailNavTitle = L10n.tr("Localizable", "movie_detail_nav_title")
   /// Videos
   internal static let movieDetailVideosHeaderTitle = L10n.tr("Localizable", "movie_detail_videos_header_title")
+  /// Credits
+  internal static let peopleDetailCreditTitle = L10n.tr("Localizable", "people_detail_credit_title")
   /// People Detail
   internal static let peopleDetailNavTitle = L10n.tr("Localizable", "people_detail_nav_title")
+  /// Okay
+  internal static let popUpButtonOkayTitle = L10n.tr("Localizable", "pop_up_button_okay_title")
+  /// Error
+  internal static let popUpErrorTitle = L10n.tr("Localizable", "pop_up_error_title")
   /// Cancel
   internal static let searchBarCancelTitle = L10n.tr("Localizable", "search_bar_cancel_title")
   /// Search movie or artist
   internal static let searchBarPlaceholderText = L10n.tr("Localizable", "search_bar_placeholder_text")
+  /// There is no data yet.
+  internal static let searchEmptyInfoTitle = L10n.tr("Localizable", "search_empty_info_title")
   /// Movies
   internal static let searchMovieHeaderTitle = L10n.tr("Localizable", "search_movie_header_title")
   /// Search

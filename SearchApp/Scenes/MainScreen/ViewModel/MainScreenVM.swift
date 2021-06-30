@@ -15,6 +15,12 @@ class MainScreenVM: BaseVM {
     var searchType: MainScreenVCSearchTypes = .onlyPopularMovies
     weak var movieCollectionViewCellDelegate: MoviesCollectionViewCellDelegate?
     weak var peopleTableViewCellDelegate: PeopleTableViewCellDelegate?
+    let scrollViewDidScrollPublishSubject = PublishSubject<UIScrollView>()
+    var popularMoviesCurrentPage : Int = 0
+    var searchMoviesCurrentPage : Int = 0
+    var searchPeoplesCurrentPage : Int = 0
+    var isLoadingList : Bool = false
+    var searchText: String?
     
     //MARK: - Responses
     var getPopularMoviesResponse = BehaviorRelay<[MovieResponseModel]>(value: [])
@@ -23,23 +29,17 @@ class MainScreenVM: BaseVM {
     
     //MARK: - Requests
     func getPopularMovies() -> Observable<BasePaginationResponseModel<MovieResponseModel>>{
+        popularMoviesCurrentPage += 1
         let queryStringRequest = BaseQueryStringRequestModel(apiKey: "d5155429a4ca75afc8742180a5108788",
                                                              language: "en-US",
-                                                             page: "1")
+                                                             page: popularMoviesCurrentPage.description)
         return Networking.request(router: MovieRouter.popular(queryStringRequest: queryStringRequest))
-    }
-    
-    func getPopularPeoples() -> Observable<BasePaginationResponseModel<PeopleResponseModel>> {
-        let queryStringRequest = BaseQueryStringRequestModel(apiKey: "d5155429a4ca75afc8742180a5108788",
-                                                             language: "en-US",
-                                                             page: "1")
-        return Networking.request(router: PeopleRouter.popular(queryStringRequest: queryStringRequest))
     }
     
     func getSearchMovies(searchText: String) -> Observable<BasePaginationResponseModel<MovieResponseModel>> {
         let queryStringRequest = BaseQueryStringRequestModel(apiKey: "d5155429a4ca75afc8742180a5108788",
                                                              language: "en-US",
-                                                             page: "1",
+                                                             page: searchMoviesCurrentPage.description,
                                                              query: searchText)
         return Networking.request(router: SearchRouter.movies(queryStringRequest: queryStringRequest))
     }
@@ -47,7 +47,7 @@ class MainScreenVM: BaseVM {
     func getSearchPeoples(searchText: String) -> Observable<BasePaginationResponseModel<PeopleResponseModel>> {
         let queryStringRequest = BaseQueryStringRequestModel(apiKey: "d5155429a4ca75afc8742180a5108788",
                                                              language: "en-US",
-                                                             page: "1",
+                                                             page: searchPeoplesCurrentPage.description,
                                                              query: searchText)
         return Networking.request(router: SearchRouter.people(queryStringRequest: queryStringRequest))
     }
@@ -78,11 +78,32 @@ class MainScreenVM: BaseVM {
     func getPeople(by index: Int) -> PeopleResponseModel {
         return getSearchPeoplesResponse.value[index]
     }
+    
+    func clearPageNumbersForNewSearch() {
+        searchMoviesCurrentPage = 1
+        searchPeoplesCurrentPage = 1
+    }
+    
+    private func shouldShowEmptyState(section: Int) -> Bool {
+        switch searchType {
+        case .onlyPopularMovies:
+            return getPopularMoviesResponse.value.count <= 0
+        case .multiSearch:
+            switch getSectionType(section: section) {
+            case .movies:
+                return getSearchMoviesResponse.value.count <= 0
+            case .peoples:
+                return getSearchPeoplesResponse.value.count <= 0
+            }
+        }
+    }
 }
 
 //MARK: - UITableView Delegate Methods
 extension MainScreenVM: UITableViewDelegate {
-    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        scrollViewDidScrollPublishSubject.onNext(scrollView)
+    }
 }
 
 //MARK: - UITableView DataSource Methods
@@ -106,6 +127,10 @@ extension MainScreenVM: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if shouldShowEmptyState(section: indexPath.section) {
+            let cell = tableView.dequeueCell(withType: EmptyStateCell.self, for: indexPath) as! EmptyStateCell
+            return cell
+        }
         switch searchType {
         case .onlyPopularMovies:
             let cell = tableView.dequeueCell(withType: OnlyMovieCell.self, for: indexPath) as! OnlyMovieCell
@@ -116,7 +141,7 @@ extension MainScreenVM: UITableViewDataSource {
             case .movies:
                 let cell = tableView.dequeueCell(withType: MoviesTableViewCell.self, for: indexPath) as! MoviesTableViewCell
                 cell.delegate = movieCollectionViewCellDelegate
-                cell.moviesSearchBehaviorRelay.accept(getSearchMoviesResponse.value)
+                cell.moviesBehaviorRelay.accept(getSearchMoviesResponse.value)
                 cell.collectionView.reloadData()
                 return cell
             case .peoples:

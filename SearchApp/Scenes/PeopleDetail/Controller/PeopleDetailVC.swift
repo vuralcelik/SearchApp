@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class PeopleDetailVC: BaseVC {
     //MARK: - Views
@@ -14,12 +16,14 @@ class PeopleDetailVC: BaseVC {
         view.backgroundColor = .clear
         view.bounces = true
         view.isScrollEnabled = true
+        view.isHidden = true
         return view
     }()
     
     lazy var containerStackView: UIStackView = {
         let view = UIStackView(arrangedSubviews: [coverPhotoImageView,
-                                                  descriptionContainerView])
+                                                  descriptionContainerView,
+                                                  creditsContainerView])
         view.backgroundColor = .clear
         view.axis = .vertical
         view.alignment = .fill
@@ -30,7 +34,7 @@ class PeopleDetailVC: BaseVC {
     
     lazy var coverPhotoImageView: UIImageView = {
         let view = UIImageView()
-        view.contentMode = .scaleAspectFill
+        view.contentMode = .scaleAspectFit
         view.backgroundColor = .clear
         return view
     }()
@@ -43,8 +47,7 @@ class PeopleDetailVC: BaseVC {
     
     lazy var descriptionContainerStackView: UIStackView = {
         let view = UIStackView(arrangedSubviews: [peopleNameLabel,
-                                                  peopleBiographyLabel,
-                                                  peopleMovieCredits])
+                                                  peopleBiographyLabel])
         view.backgroundColor = .clear
         view.axis = .vertical
         view.alignment = .fill
@@ -73,13 +76,47 @@ class PeopleDetailVC: BaseVC {
         return view
     }()
     
-    lazy var peopleMovieCredits: UILabel = {
+    lazy var creditsContainerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .clear
+        return view
+    }()
+    
+    lazy var creditsContainerStackView: UIStackView = {
+        let view = UIStackView(arrangedSubviews: [creditsTitleLabel,
+                                                  collectionView])
+        view.backgroundColor = .clear
+        view.axis = .vertical
+        view.alignment = .fill
+        view.distribution = .fill
+        view.spacing = 0
+        return view
+    }()
+    
+    lazy var creditsTitleLabel: UILabel = {
         let view = UILabel()
         view.backgroundColor = .clear
         view.textAlignment = .left
         view.numberOfLines = 1
+        view.text = L10n.peopleDetailCreditTitle
         view.font = FontFamily.SourceSansPro.semiBold.font(size: 14)
         view.textColor = ColorName.customBlack.color
+        return view
+    }()
+    
+    lazy var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 16
+        layout.itemSize = CGSize(width: 210,
+                                 height: 400)
+        layout.scrollDirection = .horizontal
+        let view = UICollectionView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), collectionViewLayout: layout)
+        view.bounces = true
+        view.backgroundColor = .clear
+        view.registerCells(types: [MovieCell.self])
+        view.dataSource = peopleDetailVM
         return view
     }()
     
@@ -90,6 +127,7 @@ class PeopleDetailVC: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         observeViewModel()
+        getPeopleDetailAndMovieCredits()
     }
     
     override func setupNavBar() {
@@ -105,6 +143,7 @@ class PeopleDetailVC: BaseVC {
         view.addSubview(scrollView)
         descriptionContainerView.addSubview(descriptionContainerStackView)
         scrollView.addSubview(containerStackView)
+        creditsContainerView.addSubview(creditsContainerStackView)
     }
     
     override func setupLayout() {
@@ -127,21 +166,48 @@ class PeopleDetailVC: BaseVC {
             make.width.equalTo(175)
             make.height.equalTo(305)
         }
+        
+        creditsContainerStackView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview().inset(16)
+        }
+        
+        collectionView.snp.makeConstraints { (make) in
+            make.height.equalTo(400)
+        }
     }
     
     //MARK: - Helper Methods
     override func observeViewModel() {
-        peopleDetailVM.navigatedPeopleResponse
+        peopleDetailVM.peopleDetailResponse
             .asObservable()
-            .subscribe { [weak self] people in
+            .subscribe { [weak self] (peopleDetailResponse) in
                 guard let self = self else { return }
-                self.peopleNameLabel.text = people.element??.name
-                self.peopleBiographyLabel.text = people.element??.name
+                self.peopleNameLabel.text = peopleDetailResponse.element?.name
+                self.peopleBiographyLabel.text = peopleDetailResponse.element?.biography ?? "-"
+                self.coverPhotoImageView.setImageWithCaching(urlString: peopleDetailResponse.element?.profilePath)
             }.disposed(by: disposeBag)
-
+        
+        peopleDetailVM.peopleDetailMovieCreditsResponse
+            .asObservable()
+            .subscribe { [weak self] (peopleDetailMovieCreditsResponse) in
+                guard let self = self else { return }
+                self.collectionView.reloadData()
+            }.disposed(by: disposeBag)
     }
     
     //MARK: - Navigations
     
     //MARK: - Service Calls
+    func getPeopleDetailAndMovieCredits() {
+        Observable.zip(peopleDetailVM.getPeopleDetail(),
+                       peopleDetailVM.getPeopleMovieCredits())
+            .subscribe { [weak self] (peopleDetailResponse, peopleDetailMovieCreditsResponse) in
+                guard let self = self else { return }
+                self.peopleDetailVM.peopleDetailResponse.accept(peopleDetailResponse)
+                self.peopleDetailVM.peopleDetailMovieCreditsResponse.accept(peopleDetailMovieCreditsResponse)
+                self.scrollView.isHidden = false
+            } onError: { [weak self] (error) in
+                self?.showError(description: error.localizedDescription)
+            }.disposed(by: disposeBag)
+    }
 }

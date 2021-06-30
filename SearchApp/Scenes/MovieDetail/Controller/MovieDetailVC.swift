@@ -15,11 +15,11 @@ class MovieDetailVC: BaseVC {
         let view = UITableView()
         view.separatorStyle = .none
         view.backgroundColor = .clear
-        view.rx.setDelegate(movieDetailVM).disposed(by: disposeBag)
         view.rx.setDataSource(movieDetailVM).disposed(by: disposeBag)
         view.registerCells(types: [CoverPhotoCell.self,
                                    MovieDetailInformationsCell.self,
                                    MovieDetailLinkCell.self])
+        view.isHidden = true
         return view
     }()
     
@@ -29,7 +29,7 @@ class MovieDetailVC: BaseVC {
     //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        getMovieCredits()
     }
     
     //MARK: - Events
@@ -71,8 +71,26 @@ class MovieDetailVC: BaseVC {
     }
     
     //MARK: - Helper Methods
+    override func observeViewModel() {
+        movieDetailVM.movieCreditsResponse
+            .asObservable()
+            .subscribe { [weak self] (movieCreditsResponseModel) in
+                guard let self = self else { return }
+                self.tableView.reloadData()
+            }.disposed(by: disposeBag)
+    }
     
     //MARK: - Navigations
     
     //MARK: - Service Calls
+    func getMovieCredits() {
+        movieDetailVM.getMovieCredits()
+            .subscribe { [weak self] (movieCreditsResponse) in
+                guard let self = self else { return }
+                self.movieDetailVM.movieCreditsResponse.accept(movieCreditsResponse)
+                self.tableView.isHidden = false
+            } onError: { [weak self] (error) in
+                self?.showError(description: error.localizedDescription)
+            }.disposed(by: disposeBag)
+    }
 }

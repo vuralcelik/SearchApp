@@ -68,6 +68,15 @@ class MovieCell: BaseCollectionViewCell {
         }
     }
     
+    var castModel: MovieResponseModel? {
+        didSet {
+            guard let validatedCastModel = castModel else { return }
+            movieTitleLabel.text = validatedCastModel.title
+            movieVoteLabel.text = validatedCastModel.voteAverage?.description
+            moviePosterImageView.setImageWithCaching(urlString: validatedCastModel.posterPath)
+        }
+    }
+    
     //MARK: - Life Cycle
     override func prepareForReuse() {
         super.prepareForReuse()

@@ -10,4 +10,5 @@ import Foundation
 struct PeopleResponseModel: Decodable {
     let profilePath: String?
     let name: String?
+    let id: Int?
 }

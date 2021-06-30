@@ -9,6 +9,7 @@ import UIKit
 import RxCocoa
 
 protocol PeopleTableViewCellDelegate: class {
+    func scrollViewDidScrollInSearchPeoplesCollection(_ scrollView: UIScrollView)
     func itemSelectedInPeopleCollectionView(index: Int)
 }
 
@@ -74,5 +75,9 @@ extension PeopleTableViewCell: UICollectionViewDataSource {
 extension PeopleTableViewCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         delegate?.itemSelectedInPeopleCollectionView(index: indexPath.row)
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        delegate?.scrollViewDidScrollInSearchPeoplesCollection(scrollView)
     }
 }
