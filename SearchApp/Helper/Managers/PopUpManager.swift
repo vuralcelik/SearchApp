@@ -8,8 +8,10 @@
 import UIKit
 
 class PopUpManager {
+    //MARK: - Properties
     static let loadingVC = LoadingVC()
     
+    //MARK: - Helper Methods
     static func showLoading(fromVC: UIViewController,
                             completionHandler: ((UIViewController) -> Void)? = nil) {
         loadingVC.modalTransitionStyle = .crossDissolve

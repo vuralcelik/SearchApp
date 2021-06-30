@@ -24,12 +24,6 @@ class CoverPhotoCell: BaseTableViewCell {
         }
     }
     
-    //MARK: - Life Cycle
-    override func commonInit() {
-        super.commonInit()
-        
-    }
-    
     //MARK: - UI Configuration
     override func setupViews() {
         super.setupViews()
@@ -38,7 +32,6 @@ class CoverPhotoCell: BaseTableViewCell {
     
     override func setupLayout() {
         super.setupLayout()
-        
         coverPhotoImageView.snp.makeConstraints { (make) in
             make.width.equalTo(175)
             make.height.equalTo(305)

@@ -30,14 +30,14 @@ class MainScreenVM: BaseVM {
     //MARK: - Requests
     func getPopularMovies() -> Observable<BasePaginationResponseModel<MovieResponseModel>>{
         popularMoviesCurrentPage += 1
-        let queryStringRequest = BaseQueryStringRequestModel(apiKey: "d5155429a4ca75afc8742180a5108788",
+        let queryStringRequest = BaseQueryStringRequestModel(apiKey: APIConstants.apiKey,
                                                              language: "en-US",
                                                              page: popularMoviesCurrentPage.description)
         return Networking.request(router: MovieRouter.popular(queryStringRequest: queryStringRequest))
     }
     
     func getSearchMovies(searchText: String) -> Observable<BasePaginationResponseModel<MovieResponseModel>> {
-        let queryStringRequest = BaseQueryStringRequestModel(apiKey: "d5155429a4ca75afc8742180a5108788",
+        let queryStringRequest = BaseQueryStringRequestModel(apiKey: APIConstants.apiKey,
                                                              language: "en-US",
                                                              page: searchMoviesCurrentPage.description,
                                                              query: searchText)
@@ -45,7 +45,7 @@ class MainScreenVM: BaseVM {
     }
     
     func getSearchPeoples(searchText: String) -> Observable<BasePaginationResponseModel<PeopleResponseModel>> {
-        let queryStringRequest = BaseQueryStringRequestModel(apiKey: "d5155429a4ca75afc8742180a5108788",
+        let queryStringRequest = BaseQueryStringRequestModel(apiKey: APIConstants.apiKey,
                                                              language: "en-US",
                                                              page: searchPeoplesCurrentPage.description,
                                                              query: searchText)

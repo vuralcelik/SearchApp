@@ -39,8 +39,7 @@ class MovieDetailVC: BaseVC {
             .itemSelected
             .subscribe { [weak self] (indexPath) in
                 guard let self = self,
-                      let validatedSection = indexPath.element?.section,
-                      let validatedRow = indexPath.element?.row else { return }
+                      let validatedSection = indexPath.element?.section else { return }
                 switch self.movieDetailVM.getSectionType(section: validatedSection) {
                 case .videos:
                     break

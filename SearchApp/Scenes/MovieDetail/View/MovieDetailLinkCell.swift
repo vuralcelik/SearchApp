@@ -22,7 +22,7 @@ class MovieDetailLinkCell: BaseTableViewCell {
     //MARK: - Computed Properties
     var movieModel: MovieResponseModel? {
         didSet {
-            guard let validatedMovieModel = movieModel else { return }
+            
         }
     }
     

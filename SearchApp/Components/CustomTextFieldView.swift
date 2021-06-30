@@ -19,13 +19,11 @@ class CustomTextFieldView: BaseView {
     override func setupViews() {
         super.setupViews()
         backgroundColor = .clear
-        
         addSubview(textField)
     }
     
     override func setupLayout() {
         super.setupLayout()
-        
         textField.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }

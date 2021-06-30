@@ -10,8 +10,6 @@ import RxSwift
 import RxCocoa
 
 class PeopleDetailVM: BaseVM {
-    //MARK: - Regular Properties
-    
     //MARK: - Responses
     var peopleDetailResponse = BehaviorRelay<PeopleDetailResponseModel>(value: PeopleDetailResponseModel())
     var peopleDetailMovieCreditsResponse = BehaviorRelay<MovieCreditsResponseModel?>(value: nil)
@@ -22,7 +20,7 @@ class PeopleDetailVM: BaseVM {
     //MARK: - Requests
     func getPeopleDetail() -> Observable<PeopleDetailResponseModel>{
         let pathVariableRequest = PeopleDetailPathVariableRequestModel(personId: navigatedPeopleResponse.value?.id ?? 0)
-        let queryStringRequest = BaseQueryStringRequestModel(apiKey: "d5155429a4ca75afc8742180a5108788",
+        let queryStringRequest = BaseQueryStringRequestModel(apiKey: APIConstants.apiKey,
                                                              language: "en-US")
         return Networking.request(router: PeopleRouter.detail(pathVariableRequest: pathVariableRequest,
                                                               queryStringRequest: queryStringRequest))
@@ -30,7 +28,7 @@ class PeopleDetailVM: BaseVM {
     
     func getPeopleMovieCredits() -> Observable<MovieCreditsResponseModel> {
         let pathVariableRequest = PeopleDetailPathVariableRequestModel(personId: navigatedPeopleResponse.value?.id ?? 0)
-        let queryStringRequest = BaseQueryStringRequestModel(apiKey: "d5155429a4ca75afc8742180a5108788",
+        let queryStringRequest = BaseQueryStringRequestModel(apiKey: APIConstants.apiKey,
                                                              language: "en-US")
         return Networking.request(router: PeopleRouter.movieCredits(pathVariableRequest: pathVariableRequest,
                                                                     queryStringRequest: queryStringRequest))

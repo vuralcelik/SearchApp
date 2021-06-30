@@ -47,12 +47,6 @@ class PeopleCell: BaseCollectionViewCell {
         }
     }
     
-    //MARK: - Life Cycle
-    override func commonInit() {
-        super.commonInit()
-        
-    }
-    
     //MARK: - UI Configuration
     override func setupViews() {
         super.setupViews()

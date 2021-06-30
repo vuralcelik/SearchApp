@@ -8,7 +8,7 @@
 import UIKit
 
 class BaseNavigationController: UINavigationController {
-
+    //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationBar.isTranslucent = false

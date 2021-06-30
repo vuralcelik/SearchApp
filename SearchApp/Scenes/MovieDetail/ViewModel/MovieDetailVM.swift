@@ -22,7 +22,7 @@ class MovieDetailVM: BaseVM {
     //MARK: - Requests
     func getMovieCredits() -> Observable<MovieCreditsResponseModel> {
         let pathVariableRequest = MovieCreditsPathVariableRequestModel(id: navigatedMovieBehaviorRelay.value?.id ?? 0)
-        let queryStringRequest = BaseQueryStringRequestModel(apiKey: "d5155429a4ca75afc8742180a5108788",
+        let queryStringRequest = BaseQueryStringRequestModel(apiKey: APIConstants.apiKey,
                                                              language: "en-US")
         return Networking.request(router: MovieRouter.credits(pathVariableRequest: pathVariableRequest,
                                                               queryStringRequest: queryStringRequest))
@@ -67,7 +67,6 @@ extension MovieDetailVM: UITableViewDataSource {
             return cell
         case .castMembers:
             let cell = tableView.dequeueCell(withType: MoviesTableViewCell.self, for: indexPath) as! MoviesTableViewCell
-//            cell.delegate = movieCollectionViewCellDelegate
             guard let validatedCastModel = movieCreditsResponse.value.cast else {
                 return cell
             }

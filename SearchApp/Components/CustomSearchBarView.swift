@@ -35,13 +35,11 @@ class CustomSearchBarView: BaseView {
     override func setupViews() {
         super.setupViews()
         backgroundColor = ColorName.customWhite.color
-        
         addSubview(containerStackView)
     }
     
     override func setupLayout() {
         super.setupLayout()
-        
         containerStackView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview().inset(8)
         }

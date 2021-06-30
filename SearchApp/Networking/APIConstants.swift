@@ -7,8 +7,6 @@
 
 import Foundation
 
-//API KEY d5155429a4ca75afc8742180a5108788
-
 struct APIConstants {
     static var baseURL: String {
         #if DEBUG
@@ -17,6 +15,8 @@ struct APIConstants {
             return "https://api.themoviedb.org/3"
         #endif
     }
+    
+    static let apiKey = "d5155429a4ca75afc8742180a5108788"
 }
 
 enum CustomHTTPHeader: String {
